@@ -7,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 class BoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final BoardingController controller = Get.put(BoardingController()); // Inject controller
+    final BoardingController controller =
+        Get.put(BoardingController()); // Inject controller
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -26,7 +27,9 @@ class BoardingScreen extends StatelessWidget {
                 itemCount: controller.onboardingItems.length,
                 onPageChanged: controller.onPageChanged, // Update current page
                 itemBuilder: (context, index) {
-                  return OnboardingItemWidget(item: controller.onboardingItems[index]);
+                  return OnboardingItemWidget(
+                    item: controller.onboardingItems[index],
+                  );
                 },
               ),
             ),
@@ -44,10 +47,15 @@ class BoardingScreen extends StatelessWidget {
                         children: _buildPageIndicator(controller),
                       )),
                   SizedBox(
-                      width: 273,
-                      height: 102,
-                      child: Obx(() => OnboardingItemDescription(
-                          item: controller.onboardingItems[controller.currentPage.value]))),
+                    width: 273,
+                    height: 102,
+                    child: Obx(
+                      () => OnboardingItemDescription(
+                        item: controller
+                            .onboardingItems[controller.currentPage.value],
+                      ),
+                    ),
+                  ),
                   GestureDetector(
                     onTap: controller.nextPage, // Move to the next page
                     child: Container(
@@ -58,16 +66,19 @@ class BoardingScreen extends StatelessWidget {
                         color: const Color(0xffFD4712),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Obx(() => Text(
-                            controller.currentPage.value < controller.onboardingItems.length - 1
-                                ? 'Next'
-                                : "Get Started",
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                            ),
-                          )),
+                      child: Obx(
+                        () => Text(
+                          controller.currentPage.value <
+                                  controller.onboardingItems.length - 1
+                              ? 'Next'
+                              : "Get Started",
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ),
                   )
                 ],
@@ -82,9 +93,11 @@ class BoardingScreen extends StatelessWidget {
   List<Widget> _buildPageIndicator(BoardingController controller) {
     List<Widget> list = [];
     for (int i = 0; i < controller.onboardingItems.length; i++) {
-      list.add(i == controller.currentPage.value
-          ? _indicator(true)
-          : _indicator(false));
+      list.add(
+        i == controller.currentPage.value
+            ? _indicator(true)
+            : _indicator(false),
+      );
     }
     return list;
   }
@@ -133,7 +146,10 @@ class OnboardingItemDescription extends StatelessWidget {
       item.description,
       textAlign: TextAlign.center,
       style: GoogleFonts.inter(
-          fontSize: 20, color: Colors.black, fontWeight: FontWeight.w700),
+        fontSize: 20,
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+      ),
     );
   }
 }
