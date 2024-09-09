@@ -28,6 +28,7 @@ flutter:
   
   assets:
     - assets/onboardingImg/
+    - assets/images/
 
   
 
