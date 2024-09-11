@@ -14,9 +14,9 @@ class Dashboard extends StatelessWidget {
       return Scaffold(
         body: IndexedStack(
           index: controller.tabIndex.value,
-          children: [
+          children: const [
             HomeScreen(),
-            HistoryScreen(),
+             HistoryScreen(),
           ],
         ),
         bottomNavigationBar: CustomBottomNavBar(

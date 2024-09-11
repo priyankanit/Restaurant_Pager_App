@@ -5,6 +5,8 @@ import 'package:restuarant_pager_app/controllers/tickets/ticket_history_controll
 import 'package:restuarant_pager_app/widgets/ticket_history_card.dart';
 
 class TicketHistoryPage extends StatelessWidget {
+  TicketHistoryPage({super.key});
+
   final TicketHistoryController controller = Get.put(TicketHistoryController());
 
   @override
@@ -12,13 +14,13 @@ class TicketHistoryPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Ticket history',
             style: TextStyle(fontWeight: FontWeight.w700),
           ),
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () => Get.back(),
           ),
         ),
@@ -28,7 +30,7 @@ class TicketHistoryPage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  SizedBox(height: 10,),
+                  const SizedBox(height: 10,),
                   TicketItem(ticket: controller.tickets[index]),
                 ],
               );
@@ -36,7 +38,7 @@ class TicketHistoryPage extends StatelessWidget {
           );
         }),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Home',

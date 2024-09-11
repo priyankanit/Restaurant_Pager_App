@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/controllers/onboarding/boarding_controller.dart';
 import 'package:restuarant_pager_app/models/onboarding/bording_model.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class BoardingScreen extends StatelessWidget {
+  const BoardingScreen({super.key});
+  
   @override
   Widget build(BuildContext context) {
     final BoardingController controller =

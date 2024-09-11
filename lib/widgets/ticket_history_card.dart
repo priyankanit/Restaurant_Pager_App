@@ -5,7 +5,7 @@ import 'package:restuarant_pager_app/models/tickets/ticket_model.dart';
 class TicketItem extends StatelessWidget {
   final TicketModel ticket;
 
-  const TicketItem({required this.ticket});
+  const TicketItem({super.key, required this.ticket});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class TicketItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${ticket.id}',
+                  ticket.id,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0, // Adjust font size for ticket ID
@@ -39,7 +39,6 @@ class TicketItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               decoration: BoxDecoration(
-                // TODO: .withAlpha(alpha: 0.5) has Some problem check figerItOut
                 color: ticket.status == "Open" ? Colors.orange.shade100 : Colors.green.shade100, 
                 borderRadius: BorderRadius.circular(8.0), // Adjust border radius for pill-like shape
               ),

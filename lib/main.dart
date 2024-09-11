@@ -5,13 +5,15 @@ import 'package:restuarant_pager_app/views/pages/dashboard/dashboard_binding.dar
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp( // GetMaterialApp is needed for GetX
+      debugShowCheckedModeBanner: false,
       title: "DemoAppOnGetx",
       initialRoute: '/',
       getPages: [
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
           name: '/',
           page: () => const Dashboard(),
           binding: DashboardBinding(),
-        )
+        ),
+        
       ],
     );
   }
