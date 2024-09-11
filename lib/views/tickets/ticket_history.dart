@@ -4,8 +4,14 @@ import 'package:get/get.dart';
 import 'package:restuarant_pager_app/controllers/tickets/ticket_history_controller.dart';
 import 'package:restuarant_pager_app/widgets/ticket_history_card.dart';
 
+import '../../controllers/notification/notification_settrings_controller.dart';
+import '../notifaicatio/notifaication_view_page.dart';
+import '../notifaicatio/notification_setting_page.dart';
+
 class TicketHistoryPage extends StatelessWidget {
   final TicketHistoryController controller = Get.put(TicketHistoryController());
+  final NotificationSettingsController settingsController =
+      Get.find<NotificationSettingsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +27,24 @@ class TicketHistoryPage extends StatelessWidget {
             icon: Icon(Icons.arrow_back),
             onPressed: () => Get.back(),
           ),
+          actions: [
+            //add settings page
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Get.to(() => SettingsPage());
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.notification_add),
+              onPressed: () {
+                //get.to NotificationView
+                Get.to(NotificationView(
+                  notificationsList: settingsController.notificationsList,
+                ));
+              },
+            ),
+          ],
         ),
         body: Obx(() {
           return ListView.builder(
@@ -28,7 +52,9 @@ class TicketHistoryPage extends StatelessWidget {
             itemBuilder: (context, index) {
               return Column(
                 children: [
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TicketItem(ticket: controller.tickets[index]),
                 ],
               );
