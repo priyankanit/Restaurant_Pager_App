@@ -10,7 +10,10 @@ class BoardingController extends GetxController {
 
   void nextPage() {
     if (currentPage.value < onboardingItems.length - 1) {
-      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+      pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+    }
+    else{
+      // Get.to(()=> HomeScreen()); // added the nextPage LOGIC
     }
   }
 

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "163216286673",
+    "firebase_url": "https://restuarantpager-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "restuarantpager",
+    "storage_bucket": "restuarantpager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163216286673:android:32ad41afdc0e181c7ab6f0",
+        "android_client_info": {
+          "package_name": "com.example.restuarant_pager_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgW0Ue-GUIXhoVb5UPXaMrWt_cTlrsrOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
