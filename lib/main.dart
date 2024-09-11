@@ -7,6 +7,7 @@ import 'firebase/firebase_api.dart';
 import 'firebase_options.dart';
 import 'views/pages/dashboard/dashboard.dart';
 import 'views/pages/dashboard/dashboard_binding.dart';
+import 'views/setting/setting_page.dart';
 import 'views/tickets/raise_ticket.dart';
 
 void main() async {
@@ -26,15 +27,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "Restuarant Pager App",
-      // home: SubmitIssuePage(),
-      initialRoute: '/',
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () => const Dashboard(),
-          binding: DashboardBinding(),
-        )
-      ],
+      home: SettingsPage(),
+      // initialRoute: '/',
+      // getPages: [
+      //   GetPage(
+      //     name: '/',
+      //     page: () => const Dashboard(),
+      //     binding: DashboardBinding(),
+      //   )
+      // ],
     );
   }
 }
