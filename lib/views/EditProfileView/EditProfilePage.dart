@@ -7,7 +7,7 @@ import 'package:restaurant_pager/views/EditProfileView/components/EditProfileGen
 import 'package:restaurant_pager/views/EditProfileView/components/EditProfileNameField.dart';
 import 'package:restaurant_pager/views/EditProfileView/components/EditProfilePhoneNoField.dart';
 import 'package:restaurant_pager/views/EditProfileView/components/EditProfilePicField.dart';
-import 'package:restaurant_pager/views/SignUpView/components/CurvedContainer.dart';
+import 'package:restaurant_pager/views/EditProfileView/components/CurvedContainer.dart';
 import 'package:restaurant_pager/widgets/Button.dart';
 import 'package:restaurant_pager/widgets/custom_bottomNavbar.dart';
 
