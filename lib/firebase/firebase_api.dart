@@ -20,7 +20,7 @@ Future<void> handleBackgroundMessage(RemoteMessage message) async {
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
-  final _tokenKey = 'fcm_token';
+  // final _tokenKey = 'fcm_token';
   final _androidChannel = const AndroidNotificationChannel(
     'high_importance_channel',
     'High Importance Notifications',
