@@ -13,6 +13,12 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flutter_svg: ^2.0.10+1
+  get: ^4.6.6
+  pinput: ^5.0.0
+  image_picker: ^1.1.2
+  smart_auth: ^2.0.0
+  delightful_toast: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -29,6 +35,11 @@ flutter:
   assets:
     - assets/onboardingImg/
     - assets/images/
+    - assets/loginAssets/Group.svg
+    - assets/phoneNumberAssets/india_icon.svg
+    - assets/loginAssets/google.svg
+    - assets/signUpAssets/edit.svg
+    - assets/signUpAssets/whatsapp.svg
 
   
 
