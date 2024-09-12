@@ -18,11 +18,11 @@ class NotificationsSettingPage extends StatelessWidget {
           backgroundColor: Colors.white,
           elevation: 0,
            title: Padding(
-             padding: const EdgeInsets.all(0.0),
+             padding: const EdgeInsets.all(8.0),
              child: SafeArea(
                child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                  children: [
                    Center(child: Text('Settings', 
                    style: GoogleFonts.inter(
@@ -83,7 +83,7 @@ class NotificationsSettingPage extends StatelessWidget {
                     
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     child: Image.asset('assets/images/notification_bell.png', height: 10, width: 10,
                     fit: BoxFit.contain,
                     ),
@@ -124,7 +124,7 @@ class NotificationsSettingPage extends StatelessWidget {
                     
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     child: Image.asset('assets/images/notification_bell.png',
                      height: 10, 
                      width: 10,
@@ -169,7 +169,7 @@ class NotificationsSettingPage extends StatelessWidget {
                     
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     child: Image.asset('assets/images/notification_bell.png', 
                     height: 10, 
                     width: 10,
