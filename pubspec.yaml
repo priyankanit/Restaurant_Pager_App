@@ -39,7 +39,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Inter-Italic-VariableFont.ttf
         - asset: assets/fonts/Inter-VariableFont.ttf
-          weight: 600
+          
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
