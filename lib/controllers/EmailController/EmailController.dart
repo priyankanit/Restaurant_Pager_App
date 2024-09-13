@@ -2,9 +2,11 @@ import 'package:get/get.dart';
 import 'package:restuarant_pager_app/models/EmailModel/Email.model.dart';
 
 class EmailController extends GetxController {
-  var emailModel = EmailModel(emailAddress: "").obs;
+  var emailModel = EmailModel().obs;
 
   var isButtonDisabled = true.obs;
+
+  String? get emailAddress => emailModel.value.emailAddress;
 
   void updateEmailAddress(String email) {
     emailModel.update((model) {
@@ -12,19 +14,13 @@ class EmailController extends GetxController {
       isButtonDisabled.value = !(model?.isEmailValid() ?? false);
     });
   }
-
-  bool validate() {
+  bool validate(){
     return emailModel.value.isEmailValid();
   }
-
   void clearEmailAddress() {
     emailModel.update((model) {
       model?.emailAddress = "";
       isButtonDisabled.value = true;
     });
-  }
-
-  String getFormattedEmailAddress() {
-    return emailModel.value.getFormattedEmailAddress();
   }
 }

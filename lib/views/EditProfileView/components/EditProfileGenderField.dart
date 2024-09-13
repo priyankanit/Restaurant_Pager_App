@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:restuarant_pager_app/constants/Genders.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/controllers/EditProfileController/EditProfileController.dart';
 
@@ -39,9 +40,7 @@ class EditProfileGenderField extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(
-                  color: state.hasError
-                      ? Colors.red
-                      : const Color.fromRGBO(216, 218, 220, 1),
+                  color: state.hasError ? Colors.red : const Color.fromRGBO(216, 218, 220, 1),
                   width: 1,
                 ),
                 color: Colors.white,
@@ -49,15 +48,14 @@ class EditProfileGenderField extends StatelessWidget {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: controller.gender,
-                  icon: const Icon(Icons.keyboard_arrow_down_outlined,
-                      color: Colors.black),
+                  icon: const Icon(Icons.keyboard_arrow_down_outlined, color: Colors.black),
                   dropdownColor: backgroundColor,
+                  borderRadius: BorderRadius.circular(8),
                   onChanged: (String? newValue) {
                     controller.updateGender(newValue);
                     state.didChange(newValue); // Update FormField state
                   },
-                  items: controller.genders
-                      .map<DropdownMenuItem<String>>((String value) {
+                  items: genders.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(

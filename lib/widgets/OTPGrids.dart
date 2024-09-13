@@ -7,6 +7,7 @@ import 'package:restuarant_pager_app/utils/reteriveOTPfromSMS.dart';
 import 'package:smart_auth/smart_auth.dart';
 
 class OTPGrids extends StatefulWidget {
+
   const OTPGrids({super.key});
 
   @override
@@ -22,7 +23,6 @@ class _OTPGridsState extends State<OTPGrids> {
     reteriver = RetrieveOTPFromSMS(SmartAuth());
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

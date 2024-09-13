@@ -10,12 +10,12 @@ class GoogleSignInButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return TextButton.icon(
       onPressed: () {
         // handle google sign in
 
         // go to add email page
-        Get.to(const UpdateNumberDetails(title: "Add Phone Number"));
+        Get.to(() => const UpdateNumberDetails(title: "Add Phone Number"));
       },
       icon: SvgPicture.asset(
         'assets/loginAssets/google.svg',
@@ -28,14 +28,21 @@ class GoogleSignInButton extends StatelessWidget {
           textStyle: const TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16,
+            height: 1,
             color: fontColor,
           ),
         ),
       ),
-      style: ElevatedButton.styleFrom(
+      style: TextButton.styleFrom(
         backgroundColor: backgroundColor,
-        minimumSize: const Size(250, 50),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        minimumSize: const Size(238, 44),
+        shape: RoundedRectangleBorder(
+          side: const BorderSide(
+            color: Color.fromRGBO(217, 217, 217, 1),
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
         padding: const EdgeInsets.all(10),
       ),
     );

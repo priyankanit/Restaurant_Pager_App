@@ -17,7 +17,7 @@ class _NameFieldState extends State<NameField> {
 
   @override
   void initState() {
-    nameController = TextEditingController();
+    nameController = TextEditingController(text: controller.name ?? "");
     super.initState();
   }
 
@@ -67,18 +67,14 @@ class _NameFieldState extends State<NameField> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: state.hasError
-                          ? Colors.red
-                          : const Color.fromRGBO(216, 218, 220, 1),
+                      color: state.hasError ? Colors.red : const Color.fromRGBO(216, 218, 220, 1),
                       width: 1,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: state.hasError
-                          ? Colors.red
-                          : const Color.fromRGBO(216, 218, 220, 1),
+                      color: state.hasError ? Colors.red : const Color.fromRGBO(216, 218, 220, 1),
                       width: 1,
                     ),
                   ),

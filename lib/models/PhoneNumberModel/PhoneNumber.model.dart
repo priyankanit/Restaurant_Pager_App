@@ -1,5 +1,5 @@
 class PhoneNumberModel {
-  String phoneNumber;
+  String? phoneNumber;
   String countryCode;
 
   PhoneNumberModel({required this.phoneNumber, required this.countryCode});
@@ -13,8 +13,9 @@ class PhoneNumberModel {
 
   // Function to check if the phone number is valid
   bool isPhoneNumberValid() {
-    return phoneNumber.length == 10
-    && phoneNumber.startsWith(RegExp(r'[6-9]'));
+    if(phoneNumber == null) return false;
+    return phoneNumber!.length == 10
+    && phoneNumber!.startsWith(RegExp(r'[6-9]'));
   }
 
   // Function to get the complete formatted phone number

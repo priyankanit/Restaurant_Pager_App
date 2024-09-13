@@ -3,10 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:restuarant_pager_app/models/EditProfileModel/EditProfile.model.dart';
+import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
-
-import '../../models/EditProfileModel/EditProfile.model.dart';
-import '../../models/PhoneNumberModel/PhoneNumber.model.dart';
 
 class EditProfileController extends GetxController {
   var model = EditProfileModel(
@@ -25,7 +24,6 @@ class EditProfileController extends GetxController {
   }
 
   // Getters
-  List<String> get genders => model.value.genders;
   File? get profilePic => model.value.profilePic;
   String? get gender => model.value.gender;
   String? get dateOfBirth => model.value.dateOfBirth;

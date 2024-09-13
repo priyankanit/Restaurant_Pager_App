@@ -30,13 +30,13 @@ class _MessagePerferenceState extends State<MessagePerference> {
                   color: Colors.black),
             ),
             Obx(() => Checkbox(
-                  value: controller.signUpModel.value.sendMessageViaWhatsApp,
-                  onChanged: (value) {
-                    controller.updateMessagePreferences(value ?? false);
-                  },
-                  checkColor: Colors.white,
-                  activeColor: themeColor,
-                ))
+              value: controller.signUpModel.value.sendMessageViaWhatsApp,
+              onChanged: (value) {
+                controller.updateMessagePreferences(value ?? false);
+              },
+              checkColor: Colors.white,
+              activeColor: themeColor,
+            ))
           ],
         ));
   }

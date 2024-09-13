@@ -18,8 +18,7 @@ class PhoneNoField extends StatefulWidget {
 
 class _PhoneNoFieldState extends State<PhoneNoField> {
   final PhoneNumberController controller = Get.put(PhoneNumberController());
-  final GlobalKey<FormFieldState<String>> _formFieldKey =
-      GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +44,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
                         DropdownButtonHideUnderline(
                           child: Obx(() => DropdownButton<String>(
                                 value: controller.selectedCountryCode,
-                                icon: const Icon(
-                                    Icons.keyboard_arrow_down_outlined,
+                                icon: const Icon(Icons.keyboard_arrow_down_outlined,
                                     color: Colors.black),
                                 dropdownColor: backgroundColor,
                                 borderRadius: BorderRadius.circular(4),
@@ -129,7 +127,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
               if (controller.isButtonDisabled.value) return;
               Get.to(OtpPageView(
                 onVerified: () {
-                  Get.to(const SignUpPage());
+                  Get.off(const SignUpPage());
                 },
               ));
             },
@@ -140,3 +138,5 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
     );
   }
 }
+
+

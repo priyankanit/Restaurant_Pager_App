@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'controllers/notification/notification_settrings_controller.dart';
 import 'firebase/firebase_api.dart';
 import 'firebase_options.dart';
@@ -26,7 +27,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: "Restuarant Pager App",
-      // home: SubmitIssuePage(),
+      theme: ThemeData(
+        scaffoldBackgroundColor: backgroundColor,
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       initialRoute: '/',
       getPages: [
         GetPage(

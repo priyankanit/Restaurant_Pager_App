@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 
 class Button extends StatefulWidget {
   final VoidCallback onPressed;
@@ -17,14 +17,16 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 44,
       child: TextButton(
-        onPressed: widget.disable ? null : widget.onPressed,
-        onHover: (value) {},
+        onPressed: widget.disable?null: widget.onPressed,
+        onHover: (value) {
+        },
         style: TextButton.styleFrom(
           disabledBackgroundColor: const Color.fromRGBO(247, 249, 250, 1),
           disabledForegroundColor: fontColor,
@@ -32,12 +34,15 @@ class _ButtonState extends State<Button> {
             borderRadius: BorderRadius.circular(8),
           ),
           backgroundColor: themeColor,
-          foregroundColor: Colors.white,
+          foregroundColor:Colors.white,
         ),
-        child: Text(
+        child:Text(
           widget.text,
           style: const TextStyle(
-              fontWeight: FontWeight.w700, fontSize: 16, height: 1.21),
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            height: 1.21
+          ),
         ),
       ),
     );

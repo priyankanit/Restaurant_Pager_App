@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 
 class TermsAndConditons extends StatelessWidget {
   const TermsAndConditons({super.key});

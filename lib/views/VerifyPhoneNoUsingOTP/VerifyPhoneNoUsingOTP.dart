@@ -183,8 +183,8 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
               width: 272,
               child: Button(
                 onPressed: () {
-                  if (otpController.isVerified != null &&
-                      otpController.isVerified!) {
+                  otpController.validate();
+                  if ( otpController.isVerified != null && otpController.isVerified!) {
                     widget.onVerified();
                   }
                 },

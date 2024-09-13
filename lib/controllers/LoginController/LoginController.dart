@@ -2,8 +2,7 @@ import 'package:get/get.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 
 class LoginController extends GetxController {
-  var phoneNumberModel =
-      PhoneNumberModel(phoneNumber: "", countryCode: "+91").obs;
+  var phoneNumberModel = PhoneNumberModel(phoneNumber: "", countryCode: "+91").obs;
 
   var isButtonDisabled = true.obs;
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 import 'package:restuarant_pager_app/controllers/SignUpController/SignUpController.dart';
 import 'package:restuarant_pager_app/views/SignUpView/components/dateField.dart';
 import 'package:restuarant_pager_app/views/SignUpView/components/emailField.dart';
@@ -25,11 +25,14 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   final SignUpController controller = Get.put(SignUpController());
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      Get.to(VerifyEmailUsingOTP(onVerified: () {
-        controller.submit();
-      }));
+        Get.to(VerifyEmailUsingOTP(onVerified: (){controller.submit();}));
     }
   }
 
@@ -54,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
         backgroundColor: backgroundColor,
       ),
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical, 
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 58.0),
           child: Form(
@@ -71,13 +74,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 const NameField(),
                 const SizedBox(height: 16),
                 // DOB section
-                const DateField(),
+                const DateField(),                  
                 const SizedBox(height: 16),
                 // Gender section
                 const GenderField(),
                 const SizedBox(height: 16),
                 // Phone Number section
-                const PhoneNoField(),
+                const PhoneNoField(),  
                 const SizedBox(height: 16),
                 // Email section
                 const EmailField(),
@@ -92,9 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const Center(
                   child: TermsAndConditons(),
                 ),
-                const SizedBox(
-                  height: 16,
-                )
+                const SizedBox(height: 16,)
               ],
             ),
           ),

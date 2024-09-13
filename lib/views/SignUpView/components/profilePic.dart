@@ -18,7 +18,6 @@ class _ProfilePicState extends State<ProfilePic> {
   void initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -52,11 +51,8 @@ class _ProfilePicState extends State<ProfilePic> {
             child: Obx(() => CircleAvatar(
                   backgroundColor: const Color.fromRGBO(247, 249, 250, 1),
                   radius: 36.5,
-                  backgroundImage: controller.profilePic != null
-                      ? FileImage(controller.profilePic!)
-                      : null,
-                  child: controller.profilePic == null
-                      ? Text(
+                  backgroundImage: controller.profilePic != null ? FileImage(controller.profilePic!):null,
+                  child: controller.profilePic == null ? Text(
                           "SS",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
@@ -65,8 +61,7 @@ class _ProfilePicState extends State<ProfilePic> {
                             height: 1.21,
                             color: Colors.black,
                           ),
-                        )
-                      : null,
+                        ):null,
                 )),
           ),
         ),

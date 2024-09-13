@@ -85,8 +85,7 @@ class _EditProfileDateFieldState extends State<EditProfileDateField> {
                             setState(() {
                               dateController.text =
                                   controller.dateOfBirth ?? '';
-                              state.didChange(dateController
-                                  .text); // Update FormField state
+                              state.didChange(dateController.text); // Update FormField state
                             });
                           },
                           controller: dateController,
@@ -116,7 +115,7 @@ class _EditProfileDateFieldState extends State<EditProfileDateField> {
                       if (dateController.text.isNotEmpty)
                         IconButton(
                           onPressed: () {
-                            controller.clearDateOfBirth();
+                            controller.clearDateOfBirth(); 
                             setState(() {
                               dateController.text = "";
                               state.didChange(dateController.text);
@@ -133,8 +132,7 @@ class _EditProfileDateFieldState extends State<EditProfileDateField> {
                           ),
                           style: IconButton.styleFrom(
                             shape: const CircleBorder(),
-                            backgroundColor:
-                                const Color.fromRGBO(255, 244, 237, 0.5),
+                            backgroundColor: const Color.fromRGBO(255, 244, 237, 0.5),
                           ),
                         ),
                     ],

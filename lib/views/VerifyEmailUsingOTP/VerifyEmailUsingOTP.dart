@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
-import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 import 'package:restuarant_pager_app/controllers/EmailController/EmailController.dart';
 import 'package:restuarant_pager_app/controllers/OTPController/OTPContoller.dart';
 import 'package:restuarant_pager_app/widgets/Button.dart';
@@ -53,7 +53,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
               "We’ve sent you a code",
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
-                color: const Color.fromRGBO(23, 23, 23, 1),
+                color: const Color.fromRGBO(23,23,23,1),
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
                 height: 1.25,
@@ -72,8 +72,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
                 ),
                 children: [
                   TextSpan(
-                    text:
-                        Get.find<EmailController>().getFormattedEmailAddress(),
+                    text: Get.find<EmailController>().emailAddress,
                     style: GoogleFonts.inter(
                       color: const Color.fromRGBO(23, 23, 23, 1),
                       fontWeight: FontWeight.w400,
@@ -88,16 +87,14 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
 
             // Resend OTP countdown
             Obx(() => Text(
-                  otpController.timerText20s > 0
-                      ? "Resend code in ${otpController.timerText20s.value}"
-                      : "Resend code now",
-                  style: GoogleFonts.inter(
-                    color: const Color.fromRGBO(23, 23, 23, 1),
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    height: 1.21,
-                  ),
-                )),
+              otpController.timerText20s > 0 ? "Resend code in ${otpController.timerText20s.value}" : "Resend code now",
+              style: GoogleFonts.inter(
+                color: const Color.fromRGBO(23, 23, 23, 1),
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                height: 1.21,
+              ),
+            )),
 
             const SizedBox(height: 24),
 
@@ -182,9 +179,9 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
               width: 272,
               child: Button(
                 onPressed: () {
-                  if (otpController.isVerified != null &&
-                      otpController.isVerified!) {
-                    widget.onVerified(); // test
+                  otpController.validate();
+                  if ( otpController.isVerified != null && otpController.isVerified!) {
+                    widget.onVerified(); // test  
                   }
                 },
                 text: "Submit",
