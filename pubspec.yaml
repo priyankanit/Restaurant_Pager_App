@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_local_notifications: ^17.0.0
   firebase_messaging: ^14.7.20
-  firebase_core: ^2.27.1
+  firebase_core: ^2.32.0
   flutter_lints: ^4.0.0
   google_fonts: ^6.1.0
   get: ^4.6.6
@@ -28,6 +28,12 @@ dependencies:
   image_picker: ^1.1.2
   smart_auth: ^2.0.0
   delightful_toast: ^1.1.0
+  firebase_auth: ^4.20.0
+  cloud_firestore: ^4.17.5
+  google_sign_in: ^6.2.1
+  firebase_storage: ^11.7.7
+  uuid: ^4.5.0
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -42,11 +48,10 @@ flutter:
   assets:
     - assets/onboardingImg/
     - assets/images/
-    - assets/loginAssets/Group.svg
-    - assets/phoneNumberAssets/india_icon.svg
-    - assets/loginAssets/google.svg
-    - assets/signUpAssets/edit.svg
-    - assets/signUpAssets/whatsapp.svg
+    - assets/phoneNumberAssets/
+    - assets/loginAssets/
+    - assets/signUpAssets/
+    - assets/splashScreenImg/
 
   
 

@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
+import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
+import 'package:restuarant_pager_app/views/pages/onboarding/boarding_screen.dart';
+import 'package:restuarant_pager_app/views/splashScreen/splash_screen.dart';
 import 'controllers/notification/notification_settrings_controller.dart';
 import 'firebase/firebase_api.dart';
 import 'firebase_options.dart';
 import 'views/pages/dashboard/dashboard.dart';
 import 'views/pages/dashboard/dashboard_binding.dart';
-import 'views/tickets/raise_ticket.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  Get.put(NotificationSettingsController()); 
+  Get.put(NotificationSettingsController());
   await FirebaseApi().initNotifications();
+
+  // Initialize necessary services
+  Get.put(AuthMethods());
+
   runApp(const MyApp());
 }
 
@@ -26,21 +33,32 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: "Restuarant Pager App",
+      title: "Restaurant Pager App",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      initialRoute: '/',
+      home: const SplashScreen(), 
       getPages: [
         GetPage(
-          name: '/',
+          name: '/boarding_screens',
+          page: () => BoardingScreen(),
+        ),
+        GetPage(
+          name: '/login',
+          page: () => const LoginPage(),
+        ),
+        GetPage(
+          name: '/dashboard',
           page: () => const Dashboard(),
           binding: DashboardBinding(),
-        )
+        ),
       ],
     );
   }
 }
+
+

@@ -3,19 +3,23 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
-import 'package:restuarant_pager_app/views/UpdateNumberDetails/UpdateNumberDetails.dart';
+import 'package:restuarant_pager_app/controllers/LoginController/LoginController.dart';
 
-class GoogleSignInButton extends StatelessWidget {
+class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({super.key});
+
+  @override
+  State<GoogleSignInButton> createState() => _GoogleSignInButtonState();
+}
+
+class _GoogleSignInButtonState extends State<GoogleSignInButton> {
+  LoginController controller = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
     return TextButton.icon(
       onPressed: () {
-        // handle google sign in
-
-        // go to add email page
-        Get.to(() => const UpdateNumberDetails(title: "Add Phone Number"));
+        controller.googleSignIn(context);
       },
       icon: SvgPicture.asset(
         'assets/loginAssets/google.svg',

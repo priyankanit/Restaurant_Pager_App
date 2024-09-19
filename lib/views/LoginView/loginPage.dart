@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/controllers/LoginController/LoginController.dart';
 import 'package:restuarant_pager_app/views/LoginView/components/googleSignInButton.dart';
 import 'package:restuarant_pager_app/widgets/TermsAndConditions.dart';
 
@@ -15,7 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
+  final controller = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {

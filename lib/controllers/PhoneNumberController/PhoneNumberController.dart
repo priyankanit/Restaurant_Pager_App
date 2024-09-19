@@ -45,8 +45,12 @@ class PhoneNumberController extends GetxController {
     });
   }
 
+  String getE164FormattedPhoneNumber(){
+    return phoneNumberModel.value.getE164FormattedPhoneNumber();
+  }
+
   // Function to get formatted phone number
   String getFormattedPhoneNumber() {
-    return phoneNumberModel.value.getFormattedPhoneNumber();
+    return phoneNumberModel.value.getFormattedPhoneNumber() ?? "";
   }
 }

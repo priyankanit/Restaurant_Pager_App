@@ -4,14 +4,23 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:restuarant_pager_app/controllers/EmailController/EmailController.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
+import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
+import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
+import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
+import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
+import 'package:restuarant_pager_app/utils/toastMessage.dart';
+import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
+import 'package:uuid/uuid.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
   PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
   EmailController emailController = Get.put(EmailController());
+  final _authMethods = Get.find<AuthMethods>();
+  final _authServices = Get.find<AuthServices>();
 
   @override
   void onInit(){
@@ -28,6 +37,7 @@ class SignUpController extends GetxController {
   String? get dateOfBirth => signUpModel.value.dateOfBirth;
   String? get gender => signUpModel.value.gender;
   File? get profilePic => signUpModel.value.profilePic;
+  bool? get whatsAppMessagePreference => signUpModel.value.sendMessageViaWhatsApp;
 
   Future<void> selectImage() async {
     final file = await pickImage(ImageSource.gallery);
@@ -36,10 +46,55 @@ class SignUpController extends GetxController {
     });
   }
 
-void submit(){
+void submit(BuildContext context) async {
   signUpModel.value.phoneNumber = phoneNumberController.phoneNumberModel.value;
   signUpModel.value.email = emailController.emailAddress;
-  // handle submission
+  final userData = Get.find<UserController>();
+  // upload profile pic to firebase if provided
+  String? downloadUrl;
+  if(profilePic != null){
+    final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
+    if(res.message == "success"){
+      downloadUrl = res.data;
+    }else{
+      if(context.mounted){
+        showToastMessage(context, res.message!);
+      }
+    }
+  }
+
+  userData.updateUserDetails(
+    name: name,
+    dateOfBirth: dateOfBirth,
+    gender: gender,
+    phone: phoneNumberController.phoneNumberModel.value,
+    profilePic: downloadUrl,
+    email: emailAdress,
+    whatsAppMessagePreference: whatsAppMessagePreference,
+  );
+
+  // if user is signing up using phone number
+  if(userData.uid == null || (userData.uid?.isEmpty ?? true)){
+    String uid = const Uuid().v5(Namespace.url.value, userData.phoneNumber); // replace namespace with suitable namespace
+    userData.updateUserDetails(uid: uid);
+  }
+
+  // storing user data in firebase
+  final res = await _authMethods.createAccount(userData.user);
+  if(res.message == "success"){
+    // sending user data to backend
+    final res2 = await _authServices.signUpUser(userData.user);
+    if(res2.message == "success"){
+      // go to home screen
+    }
+  }else{
+    if(context.mounted){
+      showToastMessage(context, res.message!);
+    }
+    userData.clearUserData();
+    Get.off(() => const LoginPage());
+  }
+
 }
 
 String? validateName() {

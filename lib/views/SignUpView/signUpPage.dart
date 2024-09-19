@@ -32,7 +32,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-        Get.to(VerifyEmailUsingOTP(onVerified: (){controller.submit();}));
+        Get.to(VerifyEmailUsingOTP(onVerified: (){controller.submit(context);}));
     }
   }
 

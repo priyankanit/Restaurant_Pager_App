@@ -23,6 +23,12 @@ class _OTPGridsState extends State<OTPGrids> {
     reteriver = RetrieveOTPFromSMS(SmartAuth());
     super.initState();
   }
+
+    @override
+  void dispose() {
+    reteriver.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return SizedBox(

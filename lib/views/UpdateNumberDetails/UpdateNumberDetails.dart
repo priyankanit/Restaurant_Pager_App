@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart'; 
 import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
+import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/views/SignUpView/signUpPage.dart';
 import 'package:restuarant_pager_app/views/VerifyPhoneNoUsingOTP/VerifyPhoneNoUsingOTP.dart';
 import 'package:restuarant_pager_app/widgets/Button.dart';
-// import 'package:restuarant_pager_app/utils/toastMessage.dart';
+import 'package:restuarant_pager_app/utils/toastMessage.dart';
 
 class UpdateNumberDetails extends StatefulWidget {
   final String title;
@@ -199,12 +200,14 @@ class _UpdateNumberDetailsState extends State<UpdateNumberDetails> {
               Obx(() => SizedBox(
                 width: 272,
                 child: Button(
-                  onPressed: () {
-                    // bool numberIsExists = true;
-                    // if(numberIsExists){
-                    //   showToastMessage(context, "The phone number you entered is already in\nuse. Please provide a different phone number.");
-                    //   return;
-                    // }
+                  onPressed: () async {
+                    final res = await Get.find<AuthMethods>().getUserWithPhoneNumber(e164phoneNumber: controller.getE164FormattedPhoneNumber());
+                    if(res.message == "success"){
+                      if(context.mounted){
+                        showToastMessage(context, "The phone number you entered is already in\nuse. Please provide a different phone number.");
+                      }
+                      return;
+                    }
 
                     Get.to(() => VerifyPhoneNoUsingOTP(onVerified: (){
                       Get.off(const SignUpPage());
