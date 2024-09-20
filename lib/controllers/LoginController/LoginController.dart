@@ -33,6 +33,7 @@ class LoginController extends GetxController {
     return phoneNumberController.validate();
   }
   void phoneSignIn(BuildContext context) async {
+    debugPrint("inside phone sign in");
     if(isButtonDisabled) return;
     final res = await _authMethods.getUserWithPhoneNumber(e164phoneNumber: phoneNumberController.getE164FormattedPhoneNumber());
     if(res.message == "success"){
@@ -44,6 +45,7 @@ class LoginController extends GetxController {
         Get.to(() => const SignUpPage());
       },));
     }else{
+      debugPrint("phone sign in error : ${res.message}");
       if(context.mounted){
         showToastMessage(context, res.message!);
       }
@@ -51,6 +53,7 @@ class LoginController extends GetxController {
     }
   }
   void googleSignIn(BuildContext context) async {
+    debugPrint("inside google sign in");
     final res = await _authMethods.signInWithGoogle();
     if (res.message == "success") {
       User user = res.data;
@@ -64,6 +67,7 @@ class LoginController extends GetxController {
           // go to home screen
         }
     } else {
+      debugPrint("google sign in error : ${res.message}");
       if(context.mounted){
         showToastMessage(context, res.message!); // we can also show snack bar if it preferred
       }

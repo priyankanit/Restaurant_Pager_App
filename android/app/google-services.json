@@ -13,7 +13,20 @@
           "package_name": "com.example.restuarant_pager_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "163216286673-kpgbshk4mkfoiiiede0l3nrcor5ecdb6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.restuarant_pager_app",
+            "certificate_hash": "8bafc3bdffcc746ec2246662d7533e8491566609"
+          }
+        },
+        {
+          "client_id": "163216286673-4e7f55r96ksmmc3lq6pekq6vcp39eotg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAgW0Ue-GUIXhoVb5UPXaMrWt_cTlrsrOk"
@@ -21,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "163216286673-4e7f55r96ksmmc3lq6pekq6vcp39eotg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "163216286673-fg2sbeg56m99cqaoveau6nkfuotvegij.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.restuarantPagerApp"
+              }
+            }
+          ]
         }
       }
     }

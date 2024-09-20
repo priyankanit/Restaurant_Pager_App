@@ -14,7 +14,7 @@ class UserController extends GetxController {
   String? get dateOfBirth => currentUser.value.dateOfBirth;
   String? get uid => currentUser.value.uid;
 
-  void setUser(UserModel user){
+  void setUser(UserModel user) {
     currentUser.value = user;
   }
 
@@ -28,19 +28,23 @@ class UserController extends GetxController {
     String? profilePic,
     bool? whatsAppMessagePreference,
   }) {
-    currentUser.value.copyWith(
-      uid: uid,
-      name: name,
-      dateOfBirth: dateOfBirth,
-      gender: gender,
-      phone: phone,
-      email: email,
-      profilePic: profilePic,
-      whatsAppMessagePreference: whatsAppMessagePreference,
+    // Create a new UserModel instance with updated values
+    UserModel updatedUser = currentUser.value.copyWith(
+      uid: uid ?? currentUser.value.uid,
+      name: name ?? currentUser.value.name,
+      dateOfBirth: dateOfBirth ?? currentUser.value.dateOfBirth,
+      gender: gender ?? currentUser.value.gender,
+      phone: phone ?? currentUser.value.phone,
+      email: email ?? currentUser.value.email,
+      profilePic: profilePic ?? currentUser.value.profilePic,
+      whatsAppMessagePreference: whatsAppMessagePreference ?? currentUser.value.whatsAppMessagePreference,
     );
+
+    // Update the observable
+    currentUser.value = updatedUser;
   }
 
-  void clearUserData(){
-    currentUser.value = UserModel();
+  void clearUserData() {
+    currentUser.value = UserModel(); // Reset to a new UserModel instance
   }
 }
