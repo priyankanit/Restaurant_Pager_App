@@ -121,7 +121,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
         SizedBox(
           width: 315,
           child: Button(
-            onPressed: () => controller.phoneSignIn,
+            onPressed: () => controller.phoneSignIn(context),
             text: 'Continue',
           ),
         ),

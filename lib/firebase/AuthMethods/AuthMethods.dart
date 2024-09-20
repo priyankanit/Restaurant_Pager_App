@@ -24,11 +24,16 @@ class AuthMethods {
         "email",// only request email
       ]).signIn();
 
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+      // Check if the user canceled the sign-in
+      if (googleUser == null) {
+        return ResponseModel(message: "Sign-in aborted by user", data: null);
+      }
+
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
       UserCredential userCredential = await _auth.signInWithCredential(credential);

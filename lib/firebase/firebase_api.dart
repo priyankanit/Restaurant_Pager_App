@@ -25,11 +25,14 @@ class FirebaseApi {
     'high_importance_channel',
     'High Importance Notifications',
     description: 'This channel is used for important notifications',
-    importance: Importance.defaultImportance,
+    importance: Importance.max,
+    playSound: true,
+    enableVibration: true,
   );
 
   final _localNotifications = FlutterLocalNotificationsPlugin();
-  final NotificationSettingsController settingsController = Get.find<NotificationSettingsController>();
+  final NotificationSettingsController settingsController =
+      Get.find<NotificationSettingsController>();
 
   void handleMessage(RemoteMessage? message) async {
     if (message == null) return;
@@ -45,14 +48,16 @@ class FirebaseApi {
 
     settingsController.notificationsList.add(newNotification);
     // Handle new notification (e.g., add to a list)
-     // Navigate to the notification view
+    // Navigate to the notification view
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Get.to(() => NotificationView(notificationsList: settingsController.notificationsList));
+      Get.to(() => NotificationView(
+          notificationsList: settingsController.notificationsList));
     });
   }
 
   Future initLocalNotifications() async {
-    const android = AndroidInitializationSettings('@drawable/launch_background');
+    const android =
+        AndroidInitializationSettings('@drawable/launch_background');
     const settings = InitializationSettings(android: android);
     await _localNotifications.initialize(
       settings,
@@ -98,7 +103,10 @@ class FirebaseApi {
               icon: '@drawable/launch_background',
               importance: Importance.max,
               priority: Priority.high,
-              vibrationPattern: isVibrationEnabled ? Int64List.fromList([0, 500, 1000]) : null,
+              playSound: isSoundEnabled,
+              vibrationPattern: isVibrationEnabled
+                  ? Int64List.fromList([0, 500, 1000])
+                  : null,
             ),
           ),
           payload: jsonEncode(message.toMap()),

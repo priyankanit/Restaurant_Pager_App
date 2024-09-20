@@ -23,6 +23,7 @@ class StorageMethods {
 
       TaskSnapshot snapshot = await uploadTask;
       downloadUrl = await snapshot.ref.getDownloadURL();
+      res = "success";
     }catch(error){
       res = error.toString();
     }

@@ -50,6 +50,13 @@ void submit(BuildContext context) async {
   signUpModel.value.phoneNumber = phoneNumberController.phoneNumberModel.value;
   signUpModel.value.email = emailController.emailAddress;
   final userData = Get.find<UserController>();
+
+    // if user is signing up using phone number
+  if(userData.uid == null || (userData.uid?.isEmpty ?? true)){
+    String uid = const Uuid().v5(Namespace.url.value, userData.phoneNumber); // replace namespace with suitable namespace
+    userData.updateUserDetails(uid: uid);
+  }
+
   // upload profile pic to firebase if provided
   String? downloadUrl;
   if(profilePic != null){
@@ -73,20 +80,19 @@ void submit(BuildContext context) async {
     whatsAppMessagePreference: whatsAppMessagePreference,
   );
 
-  // if user is signing up using phone number
-  if(userData.uid == null || (userData.uid?.isEmpty ?? true)){
-    String uid = const Uuid().v5(Namespace.url.value, userData.phoneNumber); // replace namespace with suitable namespace
-    userData.updateUserDetails(uid: uid);
-  }
 
   // storing user data in firebase
   final res = await _authMethods.createAccount(userData.user);
   if(res.message == "success"){
-    // sending user data to backend
-    final res2 = await _authServices.signUpUser(userData.user);
-    if(res2.message == "success"){
-      // go to home screen
-    }
+
+    // // sending user data to backend
+    // final res2 = await _authServices.signUpUser(userData.user);
+    // if(res2.message == "success"){
+    //   // go to home screen
+    //   Get.offAllNamed('/dashboard');
+    // }
+    Get.offAllNamed('/dashboard');
+
   }else{
     if(context.mounted){
       showToastMessage(context, res.message!);
