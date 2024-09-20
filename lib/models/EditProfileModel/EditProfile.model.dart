@@ -1,6 +1,7 @@
 import 'dart:io';
 
-import '../PhoneNumberModel/PhoneNumber.model.dart';
+import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
+
 
 class EditProfileModel {
   String? name;
@@ -10,11 +11,6 @@ class EditProfileModel {
   String? email;
   File? profilePic; // need to upload and store download url
 
-  static const List<String> _genders = [
-    "Male", "Female","Other"
-  ];
-
-  List<String> get genders => _genders;
 
   EditProfileModel({
     this.name,

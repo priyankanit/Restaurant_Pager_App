@@ -4,9 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
-import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
-import 'package:restuarant_pager_app/views/OTPView/otpPage.dart';
-import 'package:restuarant_pager_app/views/SignUpView/signUpPage.dart';
+import 'package:restuarant_pager_app/controllers/LoginController/LoginController.dart';
 import 'package:restuarant_pager_app/widgets/Button.dart';
 
 class PhoneNoField extends StatefulWidget {
@@ -17,9 +15,8 @@ class PhoneNoField extends StatefulWidget {
 }
 
 class _PhoneNoFieldState extends State<PhoneNoField> {
-  final PhoneNumberController controller = Get.put(PhoneNumberController());
-  final GlobalKey<FormFieldState<String>> _formFieldKey =
-      GlobalKey<FormFieldState<String>>();
+  final  controller = Get.find<LoginController>();
+  final GlobalKey<FormFieldState<String>> _formFieldKey = GlobalKey<FormFieldState<String>>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +24,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
       children: [
         FormField<String>(
           key: _formFieldKey,
-          validator: (value) => controller.validate(),
+          validator: (value) => controller.validatePhoneNumber(),
           builder: (state) {
             return Column(
               children: [
@@ -45,8 +42,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
                         DropdownButtonHideUnderline(
                           child: Obx(() => DropdownButton<String>(
                                 value: controller.selectedCountryCode,
-                                icon: const Icon(
-                                    Icons.keyboard_arrow_down_outlined,
+                                icon: const Icon(Icons.keyboard_arrow_down_outlined,
                                     color: Colors.black),
                                 dropdownColor: backgroundColor,
                                 borderRadius: BorderRadius.circular(4),
@@ -125,14 +121,7 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
         SizedBox(
           width: 315,
           child: Button(
-            onPressed: () {
-              if (controller.isButtonDisabled.value) return;
-              Get.to(OtpPageView(
-                onVerified: () {
-                  Get.to(const SignUpPage());
-                },
-              ));
-            },
+            onPressed: () => controller.phoneSignIn,
             text: 'Continue',
           ),
         ),
@@ -140,3 +129,5 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
     );
   }
 }
+
+

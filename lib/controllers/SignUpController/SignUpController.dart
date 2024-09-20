@@ -1,21 +1,44 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:restuarant_pager_app/controllers/EmailController/EmailController.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
+import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
+import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
+import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
+import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
+import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
+import 'package:restuarant_pager_app/utils/toastMessage.dart';
+import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
+import 'package:uuid/uuid.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
-  PhoneNumberController phoneNumberController =
-      Get.put(PhoneNumberController());
+  PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
   EmailController emailController = Get.put(EmailController());
+  final _authMethods = Get.find<AuthMethods>();
+  final _authServices = Get.find<AuthServices>();
 
-  List<String> genders = ["Male", "Female", "Other"];
+  @override
+  void onInit(){
+    super.onInit();
+    signUpModel.value.phoneNumber = PhoneNumberModel(phoneNumber: phoneNumberController.phoneNumber, countryCode: phoneNumberController.selectedCountryCode,);
+    signUpModel.value.email = emailController.emailAddress;
+  }
+
+  String? get emailAdress => emailController.emailAddress;
+  String? get phoneNumber => phoneNumberController.phoneNumber;
+  String? get countryCode => signUpModel.value.phoneNumber!.countryCode;
+  String? get countryFlag => phoneNumberController.selectedCountryFlag;
+  String? get name => signUpModel.value.name;
+  String? get dateOfBirth => signUpModel.value.dateOfBirth;
+  String? get gender => signUpModel.value.gender;
   File? get profilePic => signUpModel.value.profilePic;
+  bool? get whatsAppMessagePreference => signUpModel.value.sendMessageViaWhatsApp;
+
   Future<void> selectImage() async {
     final file = await pickImage(ImageSource.gallery);
     signUpModel.update((model) {
@@ -23,39 +46,82 @@ class SignUpController extends GetxController {
     });
   }
 
-  void submit() {
-    // handle submission
-    signUpModel.update((model) {
-      model?.email = emailController.getFormattedEmailAddress();
-      model?.phoneNumber = phoneNumberController.getFormattedPhoneNumber();
-    });
-  }
-
-  String? validateName() {
-    if (signUpModel.value.name == null || signUpModel.value.name!.isEmpty) {
-      return "Name can't be empty";
+void submit(BuildContext context) async {
+  signUpModel.value.phoneNumber = phoneNumberController.phoneNumberModel.value;
+  signUpModel.value.email = emailController.emailAddress;
+  final userData = Get.find<UserController>();
+  // upload profile pic to firebase if provided
+  String? downloadUrl;
+  if(profilePic != null){
+    final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
+    if(res.message == "success"){
+      downloadUrl = res.data;
+    }else{
+      if(context.mounted){
+        showToastMessage(context, res.message!);
+      }
     }
-    return null;
   }
 
-  String? validatePhoneNumber() {
-    return phoneNumberController.validate();
+  userData.updateUserDetails(
+    name: name,
+    dateOfBirth: dateOfBirth,
+    gender: gender,
+    phone: phoneNumberController.phoneNumberModel.value,
+    profilePic: downloadUrl,
+    email: emailAdress,
+    whatsAppMessagePreference: whatsAppMessagePreference,
+  );
+
+  // if user is signing up using phone number
+  if(userData.uid == null || (userData.uid?.isEmpty ?? true)){
+    String uid = const Uuid().v5(Namespace.url.value, userData.phoneNumber); // replace namespace with suitable namespace
+    userData.updateUserDetails(uid: uid);
   }
 
-  String? validateEmail() {
-    if (!emailController.validate()) {
-      return "Invalid Email address";
+  // storing user data in firebase
+  final res = await _authMethods.createAccount(userData.user);
+  if(res.message == "success"){
+    // sending user data to backend
+    final res2 = await _authServices.signUpUser(userData.user);
+    if(res2.message == "success"){
+      // go to home screen
     }
-    return null;
+  }else{
+    if(context.mounted){
+      showToastMessage(context, res.message!);
+    }
+    userData.clearUserData();
+    Get.off(() => const LoginPage());
   }
 
-  String? validateDOB() {
-    if (signUpModel.value.dateOfBirth == null ||
-        signUpModel.value.dateOfBirth!.isEmpty) {
-      return "Please Mention Your DOB";
-    }
-    return null;
+}
+
+String? validateName() {
+  if (signUpModel.value.name == null || signUpModel.value.name!.isEmpty) {
+    return "Name can't be empty";
   }
+  return null;
+}
+
+String? validatePhoneNumber(){
+  return phoneNumberController.validate();
+}
+
+String? validateEmail(){
+  if(!emailController.validate()){
+    return "Invalid Email address";
+  }
+  return null;
+}
+
+String? validateDOB() {
+  if (signUpModel.value.dateOfBirth == null || signUpModel.value.dateOfBirth!.isEmpty) {
+    return "Please Mention Your DOB";
+  }
+  return null;
+}
+
 
   void updateName(String name) {
     signUpModel.update((model) {
@@ -88,10 +154,6 @@ class SignUpController extends GetxController {
     });
   }
 
-  void updatePhoneNumber(String phoneNumber) {
-    phoneNumberController.updatePhoneNumber(phoneNumber);
-  }
-
   void updateEmail(String email) {
     emailController.updateEmailAddress(email);
   }
@@ -101,4 +163,5 @@ class SignUpController extends GetxController {
       model?.sendMessageViaWhatsApp = value;
     });
   }
+
 }

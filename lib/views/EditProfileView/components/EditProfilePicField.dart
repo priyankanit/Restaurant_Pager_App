@@ -17,7 +17,6 @@ class _EditProfilePicFieldState extends State<EditProfilePicField> {
   void initState() {
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,11 +32,8 @@ class _EditProfilePicFieldState extends State<EditProfilePicField> {
             child: Obx(() => CircleAvatar(
                   backgroundColor: const Color.fromRGBO(247, 249, 250, 1),
                   radius: 36.5,
-                  backgroundImage: controller.profilePic != null
-                      ? FileImage(controller.profilePic!)
-                      : null,
-                  child: controller.profilePic == null
-                      ? Text(
+                  backgroundImage: controller.profilePic != null ? FileImage(controller.profilePic!):null,
+                  child: controller.profilePic== null ? Text(
                           "SS",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(
@@ -46,8 +42,7 @@ class _EditProfilePicFieldState extends State<EditProfilePicField> {
                             height: 1.21,
                             color: Colors.black,
                           ),
-                        )
-                      : null,
+                        ):null,
                 )),
           ),
         ),

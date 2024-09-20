@@ -71,11 +71,7 @@ class _EditProfileNameFieldState extends State<EditProfileNameField> {
                   height: 40,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: state.hasError
-                          ? Colors.red
-                          : isFocused
-                              ? themeColor
-                              : const Color.fromRGBO(216, 218, 220, 1),
+                      color: state.hasError ? Colors.red : isFocused ? themeColor : const Color.fromRGBO(216, 218, 220, 1),
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(10),
@@ -130,8 +126,7 @@ class _EditProfileNameFieldState extends State<EditProfileNameField> {
                           ),
                           style: IconButton.styleFrom(
                             shape: const CircleBorder(),
-                            backgroundColor:
-                                const Color.fromRGBO(255, 244, 237, 0.5),
+                            backgroundColor: const Color.fromRGBO(255, 244, 237, 0.5),
                           ),
                         ),
                     ],

@@ -62,8 +62,7 @@ class _OtpPageViewState extends State<OtpPageView> {
                 ),
                 children: [
                   TextSpan(
-                    text: Get.find<PhoneNumberController>()
-                        .getFormattedPhoneNumber(),
+                    text: Get.find<PhoneNumberController>().getFormattedPhoneNumber(),
                     style: GoogleFonts.inter(
                       textStyle: const TextStyle(
                         color: Color.fromRGBO(23, 23, 23, 1),
@@ -79,18 +78,16 @@ class _OtpPageViewState extends State<OtpPageView> {
             const SizedBox(height: 40),
             // Countdown timer for OTP resend
             Obx(() => Text(
-                  otpController.timerText20s > 0
-                      ? "Resend code in ${otpController.timerText20s.value}"
-                      : "Resend code now",
-                  style: GoogleFonts.inter(
-                    textStyle: const TextStyle(
-                      color: Color.fromRGBO(23, 23, 23, 1),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      height: 1.21,
-                    ),
-                  ),
-                )),
+              otpController.timerText20s > 0 ? "Resend code in ${otpController.timerText20s.value}" : "Resend code now",
+              style: GoogleFonts.inter(
+                textStyle: const TextStyle(
+                  color: Color.fromRGBO(23, 23, 23, 1),
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  height: 1.21,
+                ),
+              ),
+            )),
             const SizedBox(height: 20),
             const OTPGrids(),
             const SizedBox(height: 40),
@@ -110,9 +107,7 @@ class _OtpPageViewState extends State<OtpPageView> {
                   ),
                   children: [
                     TextSpan(
-                      text: otpController.timerText30s > 0
-                          ? "Retry in ${otpController.timerText30s.value}s"
-                          : "Retry",
+                      text: otpController.timerText30s > 0? "Retry in ${otpController.timerText30s.value}s":"Retry",
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           // handle resend
@@ -132,16 +127,11 @@ class _OtpPageViewState extends State<OtpPageView> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-                width: 272,
-                child: Button(
-                    onPressed: () {
-                      if (otpController.isVerified != null &&
-                          otpController.isVerified!) {
-                        widget.onVerified();
-                      }
-                    },
-                    text: "Verify")),
+            SizedBox(width: 272, child: Button(onPressed: () {
+              if( otpController.isVerified != null && otpController.isVerified!){
+                widget.onVerified();
+              }
+            }, text: "Verify")),
           ],
         ),
       ),

@@ -20,7 +20,7 @@ class _EmailFieldState extends State<EmailField> {
 
   @override
   void initState() {
-    emailController = TextEditingController();
+    emailController = TextEditingController(text: controller.emailAdress ?? "");
     focusNode.addListener(() {
       setState(() {
         isFocused = focusNode.hasFocus;
@@ -100,8 +100,8 @@ class _EmailFieldState extends State<EmailField> {
                             ),
                           ),
                           keyboardType: TextInputType.emailAddress,
+                          onChanged:(email) => controller.updateEmail(email),
                           onEditingComplete: () {
-                            controller.updateEmail(emailController.text);
                             setState(() {
                               isEditing = false;
                             });
@@ -113,6 +113,7 @@ class _EmailFieldState extends State<EmailField> {
                       TextButton(
                         onPressed: () {
                           setState(() {
+                            focusNode.requestFocus();
                             isEditing = true;
                           });
                         },

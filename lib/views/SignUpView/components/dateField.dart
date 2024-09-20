@@ -18,6 +18,7 @@ class _DateFieldState extends State<DateField> {
   @override
   void initState() {
     dateController = TextEditingController();
+    dateController.text = controller.dateOfBirth ?? "";
     super.initState();
   }
 
@@ -53,8 +54,7 @@ class _DateFieldState extends State<DateField> {
                   setState(() {
                     dateController.text =
                         controller.signUpModel.value.dateOfBirth ?? '';
-                    state.didChange(
-                        dateController.text); // Update FormField state
+                    state.didChange(dateController.text); // Update FormField state
                   });
                 },
                 controller: dateController,
@@ -76,18 +76,14 @@ class _DateFieldState extends State<DateField> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: state.hasError
-                          ? Colors.red
-                          : const Color.fromRGBO(216, 218, 220, 1),
+                      color: state.hasError ? Colors.red : const Color.fromRGBO(216, 218, 220, 1),
                       width: 1,
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: state.hasError
-                          ? Colors.red
-                          : const Color.fromRGBO(216, 218, 220, 1),
+                      color: state.hasError ? Colors.red : const Color.fromRGBO(216, 218, 220, 1),
                       width: 1,
                     ),
                   ),

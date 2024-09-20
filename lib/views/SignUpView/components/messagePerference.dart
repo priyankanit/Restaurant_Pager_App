@@ -17,27 +17,38 @@ class _MessagePerferenceState extends State<MessagePerference> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 30,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SvgPicture.asset("assets/signUpAssets/whatsapp.svg"),
-            Text(
-              "Send me updates on whatsapp",
-              style: GoogleFonts.inter(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black),
-            ),
-            Obx(() => Checkbox(
-                  value: controller.signUpModel.value.sendMessageViaWhatsApp,
-                  onChanged: (value) {
-                    controller.updateMessagePreferences(value ?? false);
-                  },
-                  checkColor: Colors.white,
-                  activeColor: themeColor,
-                ))
-          ],
-        ));
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        SvgPicture.asset(
+          "assets/signUpAssets/whatsapp.svg",
+          height: 24,
+          width: 24,
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Expanded(
+          child: Text(
+            "Send me updates on whatsapp",
+            style: GoogleFonts.inter(
+                fontSize: 12, fontWeight: FontWeight.w500, color: Colors.black),
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        Obx(
+          () => Checkbox(
+            value: controller.signUpModel.value.sendMessageViaWhatsApp,
+            onChanged: (value) {
+              controller.updateMessagePreferences(value ?? false);
+            },
+            checkColor: Colors.white,
+            activeColor: themeColor,
+          ),
+        )
+      ],
+    ));
   }
 }

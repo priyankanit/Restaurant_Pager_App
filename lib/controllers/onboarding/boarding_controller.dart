@@ -13,7 +13,8 @@ class BoardingController extends GetxController {
       pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
     }
     else{
-      // Get.to(()=> HomeScreen()); // added the nextPage LOGIC
+      // go to login page
+      Get.toNamed("/login");
     }
   }
 

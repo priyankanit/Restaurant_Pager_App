@@ -53,11 +53,12 @@ class _EditProfilePhoneNoFieldState extends State<EditProfilePhoneNoField> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-              color: const Color.fromRGBO(216, 218, 220, 1),
+              color:const Color.fromRGBO(216, 218, 220, 1),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +66,7 @@ class _EditProfilePhoneNoFieldState extends State<EditProfilePhoneNoField> {
                 Row(
                   children: [
                     SvgPicture.asset(
-                      controller.countryFlag!,
+                     controller.countryFlag!,
                       fit: BoxFit.contain,
                       height: 16,
                       width: 16,

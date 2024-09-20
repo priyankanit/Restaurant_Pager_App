@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
+import 'package:restuarant_pager_app/controllers/LoginController/LoginController.dart';
 import 'package:restuarant_pager_app/views/LoginView/components/googleSignInButton.dart';
-import 'package:restuarant_pager_app/views/LoginView/components/phoneNoField.dart';
 import 'package:restuarant_pager_app/widgets/TermsAndConditions.dart';
+
+import 'components/phoneNoField.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,6 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +38,8 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       width: double.infinity,
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                            bottom: Radius.circular(24)),
-                        child: SvgPicture.asset("assets/loginAssets/Group.svg",
-                            fit: BoxFit.cover),
+                        borderRadius: const BorderRadius.vertical(bottom: Radius.circular(24)),
+                        child: SvgPicture.asset("assets/loginAssets/Group.svg", fit: BoxFit.cover),
                       ),
                     ),
                     const Spacer(),
@@ -45,8 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 417,
                       decoration: const BoxDecoration(
                         color: Color.fromRGBO(247, 249, 250, 1),
-                        borderRadius: BorderRadius.vertical(
-                            top: Radius.elliptical(200, 15)),
+                        borderRadius: BorderRadius.vertical(top: Radius.elliptical(200, 15)),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -81,8 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 24),
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
                                   child: Text(
                                     "Or",
                                     style: GoogleFonts.inter(
