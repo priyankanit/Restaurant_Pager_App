@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
+import 'package:restuarant_pager_app/routes/routes.dart';
 import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
 import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
 import 'package:restuarant_pager_app/views/pages/onboarding/boarding_screen.dart';
@@ -45,21 +46,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const SplashScreen(), 
-      getPages: [
-        GetPage(
-          name: '/boarding_screens',
-          page: () => BoardingScreen(),
-        ),
-        GetPage(
-          name: '/login',
-          page: () => const LoginPage(),
-        ),
-        GetPage(
-          name: '/dashboard',
-          page: () => const Dashboard(),
-          binding: DashboardBinding(),
-        ),
-      ],
+      getPages: AppRoutes.routes,
     );
   }
 }
