@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(22.0),
                   child: RichText(
                       text: const TextSpan(
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w600,
                           ),

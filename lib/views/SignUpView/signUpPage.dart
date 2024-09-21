@@ -32,7 +32,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-        Get.to(VerifyEmailUsingOTP(onVerified: (){controller.submit(context);}));
+      Get.to(VerifyEmailUsingOTP(onVerified: () {
+        controller.submit(context);
+      }));
     }
   }
 
@@ -41,16 +43,14 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 44.0, vertical: 33.0),
-          child: Text(
-            "Personal Details",
-            style: GoogleFonts.inter(
-              color: fontColor,
-              fontWeight: FontWeight.w600,
-              fontSize: 24,
-              height: 1.21,
-            ),
+        centerTitle: true,
+        title: Text(
+          "Personal Details",
+          style: GoogleFonts.inter(
+            color: fontColor,
+            fontWeight: FontWeight.w600,
+            fontSize: 24,
+            height: 1.21,
           ),
         ),
         surfaceTintColor: Colors.transparent,

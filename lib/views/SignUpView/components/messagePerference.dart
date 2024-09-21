@@ -17,7 +17,6 @@ class _MessagePerferenceState extends State<MessagePerference> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 30,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,

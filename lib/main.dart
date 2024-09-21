@@ -13,9 +13,9 @@ import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   Get.put(NotificationSettingsController());
   await FirebaseApi().initNotifications();
 
@@ -30,19 +30,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Restaurant Pager App",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: backgroundColor,
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: GetMaterialApp(
+        title: "Restaurant Pager App",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          scaffoldBackgroundColor: backgroundColor,
+          textTheme: GoogleFonts.interTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        home: const SplashScreen(),
+        getPages: AppRoutes.routes,
       ),
-      home: const SplashScreen(), 
-      getPages: AppRoutes.routes,
     );
   }
 }
-
-
