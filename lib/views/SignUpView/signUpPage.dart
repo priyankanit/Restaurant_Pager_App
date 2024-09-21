@@ -56,47 +56,49 @@ class _SignUpPageState extends State<SignUpPage> {
         surfaceTintColor: Colors.transparent,
         backgroundColor: backgroundColor,
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical, 
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 58.0),
+      body: Center(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical, 
           child: Form(
             key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Center(
-                  child: ProfilePic(),
-                ),
-                const SizedBox(height: 16),
-                // Name section
-                const NameField(),
-                const SizedBox(height: 16),
-                // DOB section
-                const DateField(),                  
-                const SizedBox(height: 16),
-                // Gender section
-                const GenderField(),
-                const SizedBox(height: 16),
-                // Phone Number section
-                const PhoneNoField(),  
-                const SizedBox(height: 16),
-                // Email section
-                const EmailField(),
-                const SizedBox(height: 30),
-                // WhatsApp perference section --> checkbox
-                const MessagePerference(),
-                const SizedBox(height: 30),
-                // Create Account Button
-                Button(onPressed: _submitForm, text: "Create account"),
-                const SizedBox(height: 30),
-                // Terms & conditions
-                const Center(
-                  child: TermsAndConditons(),
-                ),
-                const SizedBox(height: 16,)
-              ],
+            child: SizedBox(
+              width: 272,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Center(
+                    child: ProfilePic(),
+                  ),
+                  const SizedBox(height: 16),
+                  // Name section
+                  const NameField(),
+                  const SizedBox(height: 16),
+                  // DOB section
+                  const DateField(),                  
+                  const SizedBox(height: 16),
+                  // Gender section
+                  const GenderField(),
+                  const SizedBox(height: 16),
+                  // Phone Number section
+                  const PhoneNoField(),  
+                  const SizedBox(height: 16),
+                  // Email section
+                  const EmailField(),
+                  const SizedBox(height: 30),
+                  // WhatsApp perference section --> checkbox
+                  const MessagePerference(),
+                  const SizedBox(height: 30),
+                  // Create Account Button
+                  Button(onPressed: _submitForm, text: "Create account"),
+                  const SizedBox(height: 30),
+                  // Terms & conditions
+                  const Center(
+                    child: TermsAndConditons(),
+                  ),
+                  const SizedBox(height: 16,)
+                ],
+              ),
             ),
           ),
         ),

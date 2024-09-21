@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,14 +6,10 @@ import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/routes/routes.dart';
 import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
-import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
-import 'package:restuarant_pager_app/views/pages/onboarding/boarding_screen.dart';
 import 'package:restuarant_pager_app/views/splashScreen/splash_screen.dart';
 import 'controllers/notification/notification_settrings_controller.dart';
 import 'firebase/firebase_api.dart';
 import 'firebase_options.dart';
-import 'views/pages/dashboard/dashboard.dart';
-import 'views/pages/dashboard/dashboard_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

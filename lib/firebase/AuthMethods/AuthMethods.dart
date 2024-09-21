@@ -94,6 +94,7 @@ class AuthMethods {
         if(response.message == "success"){
           _localStorage.setUser(data["uid"]);
           user = response.data;
+          res = "success";
         }else{
           res = response.message!;
         }
@@ -115,6 +116,7 @@ class AuthMethods {
         if(res2.message == "success"){
           UserModel userData = res2.data;
           userController.setUser(userData);
+          res = "success";
         }else{
           res = res2.message!;
         }

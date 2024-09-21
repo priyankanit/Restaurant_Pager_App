@@ -61,10 +61,12 @@ class LoginController extends GetxController {
         final res2 = await _authMethods.getUserWithUid(uid: user.uid);
         if (res2.message == "user not found") {
           Get.to(() => const UpdateNumberDetails(title: "Add Phone Number"));
-        } else {
+        } else if(res2.message == "success") {
           userController.setUser(res2.data);
-          Get.offNamed('/dashboard');
           // go to home screen
+          Get.offNamed('/dashboard');
+        }else{
+          debugPrint("google sign in error : ${res2.message}");
         }
     } else {
       debugPrint("google sign in error : ${res.message}");
