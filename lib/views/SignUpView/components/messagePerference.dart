@@ -38,18 +38,14 @@ class _MessagePerferenceState extends State<MessagePerference> {
                   ),
             ),
             const SizedBox(width: 6,),
-            SizedBox(
-              width: 18,
-              height: 18,
-              child: Obx(() => Checkbox(
-                value: controller.signUpModel.value.sendMessageViaWhatsApp,
-                onChanged: (value) {
-                  controller.updateMessagePreferences(value ?? false);
-                },
-                checkColor: Colors.white,
-                activeColor: themeColor,
-              )),
-            )
+            Obx(() => Checkbox(
+              value: controller.signUpModel.value.sendMessageViaWhatsApp,
+              onChanged: (value) {
+                controller.updateMessagePreferences(value ?? false);
+              },
+              checkColor: Colors.white,
+              activeColor: themeColor,
+            ))
           ],
         ));
   }
