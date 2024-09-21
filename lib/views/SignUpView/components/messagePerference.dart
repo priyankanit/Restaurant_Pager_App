@@ -17,6 +17,7 @@ class _MessagePerferenceState extends State<MessagePerference> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: 30,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,14 +39,18 @@ class _MessagePerferenceState extends State<MessagePerference> {
                   ),
             ),
             const SizedBox(width: 6,),
-            Obx(() => Checkbox(
-              value: controller.signUpModel.value.sendMessageViaWhatsApp,
-              onChanged: (value) {
-                controller.updateMessagePreferences(value ?? false);
-              },
-              checkColor: Colors.white,
-              activeColor: themeColor,
-            ))
+            SizedBox(
+              width: 18,
+              height: 18,
+              child: Obx(() => Checkbox(
+                value: controller.signUpModel.value.sendMessageViaWhatsApp,
+                onChanged: (value) {
+                  controller.updateMessagePreferences(value ?? false);
+                },
+                checkColor: Colors.white,
+                activeColor: themeColor,
+              )),
+            )
           ],
         ));
   }
