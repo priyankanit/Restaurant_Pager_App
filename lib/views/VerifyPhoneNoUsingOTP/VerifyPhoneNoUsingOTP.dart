@@ -2,10 +2,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pinput/pinput.dart';
 import 'package:restuarant_pager_app/controllers/OTPController/OTPContoller.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
 import 'package:restuarant_pager_app/widgets/Button.dart';
+import 'package:restuarant_pager_app/widgets/OTPGrids.dart';
 
 class VerifyPhoneNoUsingOTP extends StatefulWidget {
   final Function() onVerified;
@@ -102,44 +102,7 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
             const SizedBox(height: 20),
 
             // Pinput for OTP input
-            Pinput(
-              mainAxisAlignment: MainAxisAlignment.center,
-              length: 4, // The number of OTP digits
-              defaultPinTheme: PinTheme(
-                width: 72,
-                height: 72,
-                textStyle: GoogleFonts.inter(
-                  fontSize: 24,
-                  color: const Color.fromRGBO(23, 23, 23, 1),
-                  fontWeight: FontWeight.w600,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color.fromRGBO(205, 207, 212, 1),
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              focusedPinTheme: PinTheme(
-                width: 72,
-                height: 72,
-                textStyle: GoogleFonts.inter(
-                  fontSize: 24,
-                  color: const Color.fromRGBO(23, 23, 23, 1),
-                  fontWeight: FontWeight.w600,
-                ),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color.fromRGBO(255, 160, 114, 1),
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              onCompleted: (otp) {
-                otpController.setOTP(otp);
-              },
-              keyboardType: TextInputType.number,
-            ),
+            const OTPGrids(),
             const SizedBox(height: 6),
 
             // Retry countdown text
@@ -183,7 +146,6 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
               width: 272,
               child: Button(
                 onPressed: () {
-                  otpController.validate();
                   if ( otpController.isVerified != null && otpController.isVerified!) {
                     widget.onVerified();
                   }

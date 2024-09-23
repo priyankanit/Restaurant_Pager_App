@@ -43,14 +43,18 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text(
-          "Personal Details",
-          style: GoogleFonts.inter(
-            color: fontColor,
-            fontWeight: FontWeight.w600,
-            fontSize: 24,
-            height: 1.21,
+        centerTitle: false,
+        titleSpacing: 0,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 44,top: 33),
+          child: Text(
+            "Personal Details",
+            style: GoogleFonts.inter(
+              color: fontColor,
+              fontWeight: FontWeight.w600,
+              fontSize: 24,
+              height: 1.3,
+            ),
           ),
         ),
         surfaceTintColor: Colors.transparent,
@@ -61,8 +65,8 @@ class _SignUpPageState extends State<SignUpPage> {
           scrollDirection: Axis.vertical, 
           child: Form(
             key: _formKey,
-            child: SizedBox(
-              width: 272,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 44),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

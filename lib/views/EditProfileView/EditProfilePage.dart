@@ -53,34 +53,37 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 58.0),
+              padding: const EdgeInsets.symmetric(horizontal: 46.0),
               child: Form(
                 key: _formKey,
-                child: Column(
+                child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 7.4,),
+                    SizedBox(height: 7.4,),
                     // name field
-                    const EditProfileNameField(),
-                    const SizedBox(height: 18,),
+                    EditProfileNameField(),
+                    SizedBox(height: 18,),
                     // date field
-                    const EditProfileDateField(),
-                    const SizedBox(height: 18,),
+                    EditProfileDateField(),
+                    SizedBox(height: 18,),
                     // gender field
-                    const EditProfileGenderField(),
-                    const SizedBox(height: 18,),
+                    EditProfileGenderField(),
+                    SizedBox(height: 18,),
                     // phone field
-                    const EditProfilePhoneNoField(),
-                    const SizedBox(height: 18,),
+                    EditProfilePhoneNoField(),
+                    SizedBox(height: 18,),
                     // email field
-                    const EditProfileEmailField(),
-                    const SizedBox(height: 32,),
-                    Button(onPressed: (){}, text: "Save Changes")
+                    EditProfileEmailField(),
+                    SizedBox(height: 32,),
                   ],
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 40),
+              child: Button(onPressed: (){}, text: "Save Changes"),
+            )
           ],
         ),
       ),

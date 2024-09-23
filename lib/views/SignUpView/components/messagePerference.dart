@@ -17,39 +17,38 @@ class _MessagePerferenceState extends State<MessagePerference> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 30,
+        height: 30,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,// center is preferred 
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 24,
-              height: 24,
-              child: SvgPicture.asset(
+            SvgPicture.asset(
               "assets/signUpAssets/whatsapp.svg",
-            )),
-            const SizedBox(width: 6,),
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(
+              width: 6,
+            ),
             Text(
               "Send me updates on whatsapp",
               style: GoogleFonts.inter(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
-                  height: 1.21
-                  ),
+                  height: 1.21),
             ),
-            const SizedBox(width: 6,),
-            SizedBox(
-              width: 18,
-              height: 18,
-              child: Obx(() => Checkbox(
-                value: controller.signUpModel.value.sendMessageViaWhatsApp,
-                onChanged: (value) {
-                  controller.updateMessagePreferences(value ?? false);
-                },
-                checkColor: Colors.white,
-                activeColor: themeColor,
-              )),
+            const SizedBox(
+              width: 6,
+            ),
+            Obx(() => Checkbox(
+                  value: controller.signUpModel.value.sendMessageViaWhatsApp,
+                  onChanged: (value) {
+                    controller.updateMessagePreferences(value ?? false);
+                  },
+                  checkColor: Colors.white,
+                  activeColor: themeColor,
+              ),
             )
           ],
         ));
