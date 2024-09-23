@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: '/',
-          page: () => const Dashboard(),
+          page: () =>const Dashboard(),
           binding: DashboardBinding(),
         ),
         
