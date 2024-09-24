@@ -7,6 +7,9 @@ class EmailController extends GetxController {
   var isButtonDisabled = true.obs;
 
   String? get emailAddress => emailModel.value.emailAddress;
+  set emailAddress(String? email){
+    emailModel.value.emailAddress = email;
+  }
 
   void updateEmailAddress(String email) {
     emailModel.update((model) {

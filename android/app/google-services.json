@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "163216286673-miul1pa0rk25gis72h2b0hju2i8fem5v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.restuarant_pager_app",
+            "certificate_hash": "c94648861ed5ce0339831f53f50e354edbf4ecdc"
+          }
+        },
+        {
           "client_id": "163216286673-4e7f55r96ksmmc3lq6pekq6vcp39eotg.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -23,6 +23,7 @@ class _OtpPageViewState extends State<OtpPageView> {
   void initState() {
     Get.delete<OTPController>();
     otpController = Get.put(OTPController());
+    otpController.sendOTPtoPhone(context);
     super.initState();
   }
 
@@ -89,7 +90,7 @@ class _OtpPageViewState extends State<OtpPageView> {
               ),
             )),
             const SizedBox(height: 20),
-            const OTPGrids(),
+            const OTPGrids(isPhoneOTP: true,),
             const SizedBox(height: 40),
             Obx(
               () => RichText(
@@ -111,6 +112,8 @@ class _OtpPageViewState extends State<OtpPageView> {
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
                           // handle resend
+                          if(otpController.timerText30s > 0) return;
+                          otpController.resendOTPtoPhone(context);
                           otpController.resetTimer();
                         },
                       style: GoogleFonts.inter(

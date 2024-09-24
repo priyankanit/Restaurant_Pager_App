@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/routes/routes.dart';
-import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
 import 'package:restuarant_pager_app/views/splashScreen/splash_screen.dart';
 import 'controllers/notification/notification_settrings_controller.dart';
 import 'firebase/firebase_api.dart';
@@ -21,7 +20,6 @@ void main() async {
 
   // Initialize necessary services
   Get.put(AuthMethods());
-  Get.put(AuthServices());
   runApp(const MyApp());
 }
 

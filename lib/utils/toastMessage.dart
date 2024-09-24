@@ -38,7 +38,7 @@ void showToastMessage(BuildContext context, String message) {
             ),
           ));
     },
-    position: DelightSnackbarPosition.bottom,
+    position: DelightSnackbarPosition.top,
     autoDismiss: true,
   ).show(context);
 }

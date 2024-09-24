@@ -3,44 +3,48 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:pinput/pinput.dart';
 import 'package:restuarant_pager_app/controllers/OTPController/OTPContoller.dart';
-import 'package:restuarant_pager_app/utils/reteriveOTPfromSMS.dart';
-import 'package:smart_auth/smart_auth.dart';
+//import 'package:restuarant_pager_app/utils/reteriveOTPfromSMS.dart';
+// import 'package:smart_auth/smart_auth.dart';
 
 class OTPGrids extends StatefulWidget {
-
-  const OTPGrids({super.key});
+  final bool isPhoneOTP;
+  const OTPGrids({
+    super.key,
+    required this.isPhoneOTP,
+  });
 
   @override
   State<OTPGrids> createState() => _OTPGridsState();
 }
 
 class _OTPGridsState extends State<OTPGrids> {
-  OTPController controller = Get.find<OTPController>();
-  late final RetrieveOTPFromSMS reteriver;
+  // late final RetrieveOTPFromSMS reteriver;
   final otpController = Get.find<OTPController>();
   @override
   void initState() {
-    reteriver = RetrieveOTPFromSMS(SmartAuth());
+    // reteriver = RetrieveOTPFromSMS(SmartAuth());
     super.initState();
   }
 
     @override
   void dispose() {
-    reteriver.dispose();
+    // reteriver.dispose();
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 327,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 17),
       child: Pinput(
-        smsRetriever: reteriver,
-        validator: (value) => otpController.validate(),
+        controller: otpController.pinputController,
+        // smsRetriever: reteriver,
+        pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+        // validator: (value) => otpController.validate(),
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        length: 4, // The number of OTP digits
+        length: 6, // The number of OTP digits
         defaultPinTheme: PinTheme(
-          width: 72,
-          height: 72,
+          width: 64,
+          height: 64,
           textStyle: const TextStyle(
             fontSize: 24,
             color: Color.fromRGBO(23, 23, 23, 1),
@@ -68,7 +72,7 @@ class _OTPGridsState extends State<OTPGrids> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onCompleted: controller.setOTP,
+        onCompleted:(otp) => otpController.setOTP(otp,widget.isPhoneOTP,context),
         keyboardType: TextInputType.number,
       ),
     );

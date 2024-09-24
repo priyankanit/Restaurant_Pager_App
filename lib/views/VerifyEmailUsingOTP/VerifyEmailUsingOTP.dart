@@ -99,7 +99,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
             const SizedBox(height: 24),
 
             // Pinput for OTP input
-            const OTPGrids(),
+            const OTPGrids(isPhoneOTP: false,),
             const SizedBox(height: 25),
 
             // Retry countdown text

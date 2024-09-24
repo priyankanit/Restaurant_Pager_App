@@ -34,23 +34,25 @@ class LoginController extends GetxController {
   }
   void phoneSignIn(BuildContext context) async {
     debugPrint("inside phone sign in");
-    if(isButtonDisabled) return;
-    final res = await _authMethods.getUserWithPhoneNumber(e164phoneNumber: phoneNumberController.getE164FormattedPhoneNumber());
-    if(res.message == "success"){
-      userController.setUser(res.data);
-      // go to home screen
-      Get.offNamed('/dashboard');
-    }else if(res.message == "user not found"){
-      Get.to(()=> OtpPageView(onVerified: (){
-        Get.to(() => const SignUpPage());
-      },));
-    }else{
-      debugPrint("phone sign in error : ${res.message}");
-      if(context.mounted){
-        showToastMessage(context, res.message!);
-      }
-      userController.clearUserData();
-    }
+    if (isButtonDisabled) return;
+    Get.to(() => OtpPageView(onVerified: () async {
+          final res = await _authMethods.getUserWithUid(uid: userController.uid!);
+          if (res.message == "success") {
+            userController.setUser(res.data);
+            // go to home screen
+            Get.offNamed('/dashboard');
+          } else if (res.message == "user not found") {
+            Get.off(() => const SignUpPage());
+          } else {
+            debugPrint("phone sign in error : ${res.message}");
+            if (context.mounted) {
+              showToastMessage(context, res.message!);
+            }
+            userController.clearUserData();
+          }
+        },
+      ),
+    );
   }
   void googleSignIn(BuildContext context) async {
     debugPrint("inside google sign in");

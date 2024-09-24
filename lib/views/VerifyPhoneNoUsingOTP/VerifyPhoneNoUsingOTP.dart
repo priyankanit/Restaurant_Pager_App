@@ -22,6 +22,7 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
   void initState() {
     Get.delete<OTPController>();
     otpController = Get.put(OTPController());
+    otpController.sendOTPtoPhone(context);
     super.initState();
   }
 
@@ -102,7 +103,7 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
             const SizedBox(height: 20),
 
             // Pinput for OTP input
-            const OTPGrids(),
+            const OTPGrids(isPhoneOTP: true,),
             const SizedBox(height: 6),
 
             // Retry countdown text
@@ -125,7 +126,10 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
                           : "Retry",
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // handle resend
+                          if(otpController.timerText30s > 0){
+                            return;
+                          }
+                          otpController.resendOTPtoPhone(context);
                           otpController.resetTimer();
                         },
                       style: GoogleFonts.inter(

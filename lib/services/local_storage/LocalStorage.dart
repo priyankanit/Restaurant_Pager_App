@@ -13,7 +13,18 @@ class LocalStorage {
     return uid;
   }
 
-  void clearAll(){
-    setUser('');
+  void setPhoneNumber(String e164phoneNumber) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString('x-auth-phone', e164phoneNumber);
+  }
+
+  Future<String?> getPhoneNumber() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString('x-auth-phone');
+  }
+
+  Future<bool> clearAll()async{
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.clear();
   }
 }

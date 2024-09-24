@@ -39,7 +39,7 @@ class _MessagePerferenceState extends State<MessagePerference> {
                   height: 1.21),
             ),
             const SizedBox(
-              width: 6,
+              width: 5,
             ),
             Obx(() => Checkbox(
                   value: controller.signUpModel.value.sendMessageViaWhatsApp,

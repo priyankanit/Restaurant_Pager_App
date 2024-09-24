@@ -9,23 +9,22 @@ import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
-import 'package:restuarant_pager_app/services/auth_services/AuthServices.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
 import 'package:restuarant_pager_app/utils/toastMessage.dart';
 import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
-import 'package:uuid/uuid.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
   PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
   EmailController emailController = Get.put(EmailController());
   final _authMethods = Get.find<AuthMethods>();
-  final _authServices = Get.find<AuthServices>();
+  final userController = Get.find<UserController>();
 
   @override
   void onInit(){
     super.onInit();
     signUpModel.value.phoneNumber = PhoneNumberModel(phoneNumber: phoneNumberController.phoneNumber, countryCode: phoneNumberController.selectedCountryCode,);
+    emailController.emailAddress = userController.email;
     signUpModel.value.email = emailController.emailAddress;
   }
 
@@ -51,12 +50,6 @@ void submit(BuildContext context) async {
   signUpModel.value.email = emailController.emailAddress;
   final userData = Get.find<UserController>();
 
-    // if user is signing up using phone number
-  if(userData.uid == null || (userData.uid?.isEmpty ?? true)){
-    String uid = const Uuid().v5(Namespace.url.value, userData.phoneNumber); // replace namespace with suitable namespace
-    userData.updateUserDetails(uid: uid);
-  }
-
   // upload profile pic to firebase if provided
   String? downloadUrl;
   if(profilePic != null){
@@ -81,18 +74,10 @@ void submit(BuildContext context) async {
   );
 
 
-  // storing user data in firebase
+  // storing user data in backend
   final res = await _authMethods.createAccount(userData.user);
   if(res.message == "success"){
-
-    // // sending user data to backend
-    // final res2 = await _authServices.signUpUser(userData.user);
-    // if(res2.message == "success"){
-    //   // go to home screen
-    //   Get.offAllNamed('/dashboard');
-    // }
     Get.offAllNamed('/dashboard');
-
   }else{
     if(context.mounted){
       showToastMessage(context, res.message!);

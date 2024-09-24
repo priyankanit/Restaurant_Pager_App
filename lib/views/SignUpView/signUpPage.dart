@@ -23,18 +23,25 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
+  bool signUpUsingPhone = true;
   final SignUpController controller = Get.put(SignUpController());
 
   @override
   void initState() {
+    if(controller.emailAdress != null){
+      signUpUsingPhone = false;
+    }
     super.initState();
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+    if (!_formKey.currentState!.validate()) return;
+    if(!signUpUsingPhone){
       Get.to(VerifyEmailUsingOTP(onVerified: () {
         controller.submit(context);
       }));
+    }else{
+      controller.submit(context);
     }
   }
 

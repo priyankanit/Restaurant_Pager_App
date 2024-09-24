@@ -5,6 +5,7 @@ import 'package:restuarant_pager_app/models/ResponseModel/ResponseModel.dart';
 
 class SplashScreenController extends GetxController {
   static const int seconds = 5;
+
   @override
   void onReady() {
     _initializeApp();
@@ -15,18 +16,27 @@ class SplashScreenController extends GetxController {
     await Future.delayed(const Duration(seconds: seconds));
 
     final authMethods = Get.find<AuthMethods>();
-    try {
-      final ResponseModel response = await authMethods.getUserData();
-      if (response.message == "user not found") {
-        Get.offAllNamed('/boarding_screens');
-      } else if (response.message == "success") {
-        Get.offAllNamed('/dashboard');
+
+    // Listen to auth state changes
+    authMethods.authChanges.listen((user) async {
+      if (user != null) {
+        // If a user is signed in, fetch user data
+        try {
+          final ResponseModel response = await authMethods.getUserData();
+          if (response.message == "success") {
+            // User data found, navigate to dashboard
+            Get.offAllNamed('/dashboard');
+          } else {
+            // Error retrieving user data, navigate to login
+            Get.offAllNamed('/login');
+          }
+        } catch (e) {
+          debugPrint('Error fetching user data: $e');
+          Get.offAllNamed('/login');
+        }
       } else {
-        Get.offAllNamed('/login');
+        Get.offAllNamed('/boarding_screens');
       }
-    } catch (e) {
-      debugPrint('Error initializing app: $e');
-      Get.offAllNamed('/login');
-    }
+    });
   }
 }
