@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
@@ -58,9 +57,7 @@ class LoginController extends GetxController {
     debugPrint("inside google sign in");
     final res = await _authMethods.signInWithGoogle();
     if (res.message == "success") {
-      User user = res.data;
-        userController.updateUserDetails(uid: user.uid,email: user.email);
-        final res2 = await _authMethods.getUserWithUid(uid: user.uid);
+        final res2 = await _authMethods.getUserWithUid(uid: userController.uid!);
         if (res2.message == "user not found") {
           Get.to(() => const UpdateNumberDetails(title: "Add Phone Number"));
         } else if(res2.message == "success") {

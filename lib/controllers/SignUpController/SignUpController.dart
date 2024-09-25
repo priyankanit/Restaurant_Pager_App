@@ -15,7 +15,7 @@ import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
-  PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
+  PhoneNumberController phoneNumberController = Get.find<PhoneNumberController>();
   EmailController emailController = Get.put(EmailController());
   final _authMethods = Get.find<AuthMethods>();
   final userController = Get.find<UserController>();
@@ -24,6 +24,7 @@ class SignUpController extends GetxController {
   void onInit(){
     super.onInit();
     signUpModel.value.phoneNumber = PhoneNumberModel(phoneNumber: phoneNumberController.phoneNumber, countryCode: phoneNumberController.selectedCountryCode,);
+    debugPrint(phoneNumberController.getE164FormattedPhoneNumber());
     emailController.emailAddress = userController.email;
     signUpModel.value.email = emailController.emailAddress;
   }

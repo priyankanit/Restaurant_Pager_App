@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/models/ResponseModel/ResponseModel.dart';
+import 'package:restuarant_pager_app/views/SignUpView/signUpPage.dart';
 
 class SplashScreenController extends GetxController {
   static const int seconds = 5;
@@ -27,8 +28,8 @@ class SplashScreenController extends GetxController {
             // User data found, navigate to dashboard
             Get.offAllNamed('/dashboard');
           } else {
-            // Error retrieving user data, navigate to login
-            Get.offAllNamed('/login');
+            // Error retrieving user data, navigate to sign up page to get details and register at backend
+            Get.off(() => const SignUpPage());
           }
         } catch (e) {
           debugPrint('Error fetching user data: $e');

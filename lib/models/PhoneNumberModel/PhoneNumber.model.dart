@@ -33,7 +33,7 @@ class PhoneNumberModel {
 }
 
   String getE164FormattedPhoneNumber(){
-    return '$countryCode $phoneNumber';
+    return '$countryCode$phoneNumber';
   }
 
   PhoneNumberModel copyWith({

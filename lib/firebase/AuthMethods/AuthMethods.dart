@@ -19,7 +19,6 @@ class AuthMethods {
 
   Future<ResponseModel> signInWithGoogle() async {
     String res = "some error occurred";
-    User? user;
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn(scopes: [
         "email",// only request email
@@ -38,30 +37,37 @@ class AuthMethods {
       );
 
       UserCredential userCredential = await _auth.signInWithCredential(credential);
-      user = userCredential.user;
+      User? user = userCredential.user;
 
       if (user != null) {
+        userController.updateUserDetails(uid: user.uid,email: user.email,name: user.displayName);
         res = "success";
       }
     } on FirebaseAuthException catch (error) {
       res = error.message ?? error.toString();
     }
-    return ResponseModel(message: res,data:user);
+    return ResponseModel(message: res);
   }
 
 Future<ResponseModel> signInUsingPhoneNumber()async{
   final otpController = Get.find<OTPController>();
   String res = "some error occurred";
-  User? user;
   try {
     String verificationId = otpController.verificationId!;
     final credential = PhoneAuthProvider.credential(
       verificationId: verificationId,
-      smsCode: otpController.otp ?? "",
+      smsCode: otpController.otp!,
     );
-    final userCredential = await _auth.signInWithCredential(credential);
-    user = userCredential.user;
-    res = "success";
+    if(userController.uid == null){
+      final userCredential = await _auth.signInWithCredential(credential);
+      User? user = userCredential.user;
+      if(user != null){
+        userController.updateUserDetails(uid: user.uid);
+        res = "success";
+      }
+    }else{
+      await user?.linkWithCredential(credential);
+    }
   } catch (error) {
     if (error is FirebaseAuthException) {
       res = error.message ?? "Verification failed. Please try again.";
@@ -103,6 +109,7 @@ void sentOTPtoPhone(String e164phoneNumber,int? resendToken, BuildContext contex
         otpController.resendToken = resendToken;
       },
       codeAutoRetrievalTimeout: (String verificationId) {
+        otpController.verificationId = verificationId;
         // You can add additional logic here if needed
       },
       forceResendingToken: resendToken, // resend otp 
