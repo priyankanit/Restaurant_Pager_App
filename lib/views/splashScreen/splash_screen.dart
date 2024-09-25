@@ -11,6 +11,8 @@ class SplashScreen extends StatelessWidget {
       init: SplashScreenController(),
       builder: (context) {
         return Scaffold(
+          extendBodyBehindAppBar: true,
+          extendBody: true,
           body: Stack(
             children: [
               const SizedBox(
@@ -37,7 +39,7 @@ class SplashScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(22.0),
                   child: RichText(
                       text: const TextSpan(
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 36,
                             fontWeight: FontWeight.w600,
                           ),
