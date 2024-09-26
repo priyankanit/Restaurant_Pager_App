@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 
 
@@ -9,7 +7,7 @@ class EditProfileModel {
   String? gender;
   PhoneNumberModel? phoneNumber;
   String? email;
-  File? profilePic; // need to upload and store download url
+  String? profilePic;
 
 
   EditProfileModel({

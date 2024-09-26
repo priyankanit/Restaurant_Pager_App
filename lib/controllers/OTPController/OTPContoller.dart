@@ -6,6 +6,7 @@ import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumb
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/models/OTPModel/OTP.model.dart';
+import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/utils/toastMessage.dart';
 
 class OTPController extends GetxController {
@@ -13,6 +14,7 @@ class OTPController extends GetxController {
   late Timer _timer;
   final _authMethods = Get.find<AuthMethods>();
   final phoneController = Get.find<PhoneNumberController>();
+  final userController = Get.find<UserController>();
   TextEditingController pinputController = TextEditingController();
   RxInt timerText20s = 20.obs;
   RxInt timerText30s = 30.obs;
@@ -72,6 +74,7 @@ class OTPController extends GetxController {
   }
 
   Future<void> sendOTPtoPhone(BuildContext context)async{
+    userController.updateUserDetails(phone: PhoneNumberModel(countryCode: phoneController.selectedCountryCode,phoneNumber: phoneController.phoneNumber));
     _authMethods.sentOTPtoPhone(phoneController.getE164FormattedPhoneNumber(), null, context);
   }
 
@@ -82,7 +85,6 @@ class OTPController extends GetxController {
   Future<String?> validatePhoneOTP() async {
     final res = await _authMethods.signInUsingPhoneNumber();
     if(res.message == "success"){
-      final userController = Get.find<UserController>();
       User userData = res.data;
       userController.updateUserDetails(uid: userData.uid);
       isVerified = true;

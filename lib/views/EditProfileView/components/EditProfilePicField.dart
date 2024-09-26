@@ -32,8 +32,13 @@ class _EditProfilePicFieldState extends State<EditProfilePicField> {
             child: Obx(() => CircleAvatar(
                   backgroundColor: const Color.fromRGBO(247, 249, 250, 1),
                   radius: 36.5,
-                  backgroundImage: controller.profilePic != null ? FileImage(controller.profilePic!):null,
-                  child: controller.profilePic== null ? Text(
+                  backgroundImage: controller.selectedPic != null
+                      ? FileImage(controller.selectedPic!)
+                      : controller.profilePic != null
+                          ? NetworkImage(controller.profilePic!)
+                              as ImageProvider
+                          : null,
+                  child: controller.profilePic == null && controller.selectedPic == null ? Text(
                           "SS",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.inter(

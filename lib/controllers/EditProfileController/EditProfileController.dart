@@ -3,28 +3,33 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
+import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
+import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
 import 'package:restuarant_pager_app/models/EditProfileModel/EditProfile.model.dart';
-import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
+import 'package:restuarant_pager_app/utils/toastMessage.dart';
 
 class EditProfileController extends GetxController {
-  var model = EditProfileModel(
-    //temporary
-    phoneNumber: PhoneNumberModel(
-      phoneNumber: "98765 43210",
-      countryCode: "+91",
-    ),
-    email: "Sahib19@gmail.com",
-  ).obs;
+  var model = EditProfileModel().obs;
+  final userController = Get.find<UserController>();
+  File? _selectedPic;
 
   @override
-  void onReady() {
-    // Populate fields with previous data (fetch from database or API)
-
+  void onInit(){
+    super.onInit();
+    model.update((model){
+      model?.dateOfBirth = userController.dateOfBirth;
+      model?.name = userController.name;
+      model?.gender = userController.gender;
+      model?.email = userController.email;
+      model?.profilePic = userController.profilePic;
+    });
   }
 
   // Getters
-  File? get profilePic => model.value.profilePic;
+  String? get profilePic => model.value.profilePic;
+  File? get selectedPic => _selectedPic;
   String? get gender => model.value.gender;
   String? get dateOfBirth => model.value.dateOfBirth;
   String? get name => model.value.name;
@@ -43,13 +48,33 @@ class EditProfileController extends GetxController {
 
   Future<void> selectImage() async {
     final file = await pickImage(ImageSource.gallery);
-    model.update((model) {
-      model?.profilePic = file;
-    });
+    _selectedPic = file;
   }
 
-  void submit() {
-    // Handle submission logic
+  void submit(BuildContext context) async {
+    final authMethods = Get.find<AuthMethods>();
+    // upload profile pic if given
+    String? downloadUrl;
+    if(_selectedPic != null){
+      final res = await StorageMethods().uploadProfilePic(file: _selectedPic!, uid: userController.uid!);
+      if(res.message == "success"){
+        downloadUrl = res.data;
+      }else{
+        if(context.mounted){
+          showToastMessage(context, "Error uploading file");
+        }
+      }
+    }
+    // update model
+    model.update((model){
+      model?.profilePic = downloadUrl ?? profilePic;
+    });
+
+    userController.updateUserDetails(name: name,dateOfBirth: dateOfBirth,profilePic: profilePic,gender: gender,);
+    final res = await authMethods.updateUser(userController.user);
+    if(res.message != "success"){
+      if(context.mounted) showToastMessage(context, "Error updating details");
+    }
   }
 
   String? validateName() {
