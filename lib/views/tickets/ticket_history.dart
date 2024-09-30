@@ -9,7 +9,7 @@ import '../notifaicatio/notifaication_view_page.dart';
 import '../notifaicatio/notification_setting_page.dart';
 
 class TicketHistoryPage extends StatelessWidget {
-  final TicketHistoryController controller = Get.put(TicketHistoryController());
+  final TicketController controller = Get.put(TicketController());
   final NotificationSettingsController settingsController =
       Get.find<NotificationSettingsController>();
 
@@ -17,7 +17,9 @@ class TicketHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Color(0xfff7f9fa),
         appBar: AppBar(
+          backgroundColor: Color(0xfff7f9fa),
           title: Text(
             'Ticket history',
             style: TextStyle(fontWeight: FontWeight.w700),

@@ -80,7 +80,7 @@ class CustomBottomNavBar extends StatelessWidget {
   Widget _buildScannerButton() {
     return GestureDetector(
       onTap: () {
-        Get.to(const ScannerScreen());
+        Get.to(ScannerScreen());
         print("object");
       },
       child: Container(

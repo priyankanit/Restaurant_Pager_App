@@ -3,7 +3,7 @@ class IssueTicketModel {
   String lastName;
   String email;
   String? selectedOrder;
-  String? filePath;
+  String? attachFile;
   String description;
 
   IssueTicketModel({
@@ -11,7 +11,7 @@ class IssueTicketModel {
     required this.lastName,
     required this.email,
     this.selectedOrder,
-    this.filePath,
     required this.description,
+    required this.attachFile,
   });
 }
