@@ -1,6 +1,5 @@
 // views/widgets/ticket_item.dart
 import 'package:flutter/material.dart';
-import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/models/tickets/ticket_model.dart';
 
 class TicketItem extends StatelessWidget {
