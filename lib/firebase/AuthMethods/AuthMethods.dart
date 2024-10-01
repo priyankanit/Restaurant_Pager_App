@@ -21,9 +21,9 @@ class AuthMethods {
   // http://10.0.2.2:8000 for emulation
   // replace with your machine ip address to test on real device
   Map<String, String> routes = {
-    "create_user": "http://192.168.29.88:8000/user/",
-    "get_user": "http://192.168.29.88:8000/user_check/",
-    "email_otp": "http://192.168.29.88:8000/otp/",
+    "create_user": "http://10.0.2.2:8000/user/",
+    "get_user": "http://10.0.2.2:8000/user_check/",
+    "email_otp": "http://10.0.2.2:8000/otp/",
   };
 
   Future<ResponseModel> signInWithGoogle() async {
