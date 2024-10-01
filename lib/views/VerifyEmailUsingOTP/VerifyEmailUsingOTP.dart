@@ -23,6 +23,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
   void initState() {
     Get.delete<OTPController>();
     otpController = Get.put(OTPController());
+    otpController.sendOTPtoEmail();
     super.initState();
   }
 

@@ -6,7 +6,7 @@ import 'package:restuarant_pager_app/controllers/EmailController/EmailController
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
-import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
+// import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
@@ -25,7 +25,6 @@ class SignUpController extends GetxController {
     super.onInit();
     signUpModel.value.phoneNumber = PhoneNumberModel(phoneNumber: phoneNumberController.phoneNumber, countryCode: phoneNumberController.selectedCountryCode,);
     signUpModel.value.name = userController.name;
-    debugPrint(phoneNumberController.getE164FormattedPhoneNumber());
     emailController.emailAddress = userController.email;
     signUpModel.value.email = emailController.emailAddress;
   }
@@ -52,36 +51,40 @@ void submit(BuildContext context) async {
   signUpModel.value.email = emailController.emailAddress;
   final userData = Get.find<UserController>();
 
-  // upload profile pic to firebase if provided
-  String? downloadUrl;
-  if(profilePic != null){
-    final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
-    if(res.message == "success"){
-      downloadUrl = res.data;
-    }else{
-      if(context.mounted){
-        showToastMessage(context, res.message!);
-      }
-    }
-  }
+
+  // temporary -> may be backend handle upload
+
+  // // upload profile pic to firebase if provided
+  // String? downloadUrl;
+  // if(profilePic != null){
+  //   final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
+  //   if(res.message == "success"){
+  //     downloadUrl = res.data;
+  //   }else{
+  //     if(context.mounted){
+  //       showToastMessage(context, res.message!);
+  //     }
+  //   }
+  // }
 
   userData.updateUserDetails(
     name: name,
     dateOfBirth: dateOfBirth,
     gender: gender,
     phone: phoneNumberController.phoneNumberModel.value,
-    profilePic: downloadUrl,
+    // profilePic: downloadUrl,
     email: emailAdress,
     whatsAppMessagePreference: whatsAppMessagePreference,
   );
 
 
   // storing user data in backend
-  final res = await _authMethods.createAccount(userData.user);
+  final res = await _authMethods.createAccount(userData.user,profilePic);
   if(res.message == "success"){
     Get.offAllNamed('/dashboard');
   }else{
     if(context.mounted){
+      print(res.message!);
       showToastMessage(context, res.message!);
     }
     userData.clearUserData();

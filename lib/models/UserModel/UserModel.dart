@@ -51,7 +51,7 @@ class UserModel {
       'username': name,
       'date_of_birth': dateOfBirth,
       'gender': gender,
-      'phone_number': phone?.toMap(),
+      'phone_number': phone?.getE164FormattedPhoneNumber(),
       'email': email,
       'profile_image': profilePic,
       'is_active': whatsAppMessagePreference,
@@ -60,11 +60,11 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uid: map['uid'] as String,
+      uid: map['uid'] as String?,
       name: map['username'] as String,
       dateOfBirth: map['date_of_birth'] as String,
       gender: map['gender'] as String,
-      phone: PhoneNumberModel.fromMap(map['phone_number'] as Map<String,dynamic>),
+      phone: PhoneNumberModel.fillFromE164(map["phone_number"]),
       email: map['email'] as String,
       profilePic: map['profile_image'] as String,
       whatsAppMessagePreference: map['is_active'] as bool,

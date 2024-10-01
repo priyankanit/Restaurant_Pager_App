@@ -60,6 +60,22 @@ class PhoneNumberModel {
     );
   }
 
+// Method to fill country code and phone number from an E.164 formatted number
+factory PhoneNumberModel.fillFromE164(String e164FormattedNumber) {
+  for (var country in _countries) {
+    final code = country['code']!;
+    if (e164FormattedNumber.startsWith(code)) {
+      final parsedPhoneNumber = e164FormattedNumber.substring(code.length);
+      return PhoneNumberModel(
+        countryCode: code,
+        phoneNumber: parsedPhoneNumber,
+      );
+    }
+  }
+  throw Exception('Country code not found for the given number');
+}
+
+
   String toJson() => json.encode(toMap());
 
   factory PhoneNumberModel.fromJson(String source) => PhoneNumberModel.fromMap(json.decode(source) as Map<String, dynamic>);

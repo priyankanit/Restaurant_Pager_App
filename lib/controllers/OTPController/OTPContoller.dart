@@ -12,6 +12,7 @@ import 'package:restuarant_pager_app/utils/toastMessage.dart';
 class OTPController extends GetxController {
   final OTPModel otpModel = OTPModel();
   late Timer _timer;
+  String _emailOTP = '';
   final _authMethods = Get.find<AuthMethods>();
   final phoneController = Get.find<PhoneNumberController>();
   final userController = Get.find<UserController>();
@@ -44,7 +45,7 @@ class OTPController extends GetxController {
     if(isPhoneOTP){
       error = await validatePhoneOTP();
     }else{
-      // handle email OTP verfication
+      isVerified = _emailOTP.trim() == otp.trim();
     }
     if(error != null){
       if(context.mounted){
@@ -76,6 +77,13 @@ class OTPController extends GetxController {
   Future<void> sendOTPtoPhone(BuildContext context)async{
     userController.updateUserDetails(phone: PhoneNumberModel(countryCode: phoneController.selectedCountryCode,phoneNumber: phoneController.phoneNumber));
     _authMethods.sentOTPtoPhone(phoneController.getE164FormattedPhoneNumber(), null, context);
+  }
+
+  Future<void> sendOTPtoEmail()async{
+    final res = await _authMethods.sentOTPtoEmail(userController.email!);
+    if(res.message == "success"){
+      _emailOTP = res.data!;
+    }
   }
 
   Future<void> resendOTPtoPhone(BuildContext context)async{
