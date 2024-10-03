@@ -22,7 +22,7 @@ class TicketItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${ticket.id}',
+                  '#${ticket.id}',
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0, // Adjust font size for ticket ID
@@ -37,21 +37,21 @@ class TicketItem extends StatelessWidget {
                 ),
               ],
             ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            //   decoration: BoxDecoration(
-            //     color: ticket.status == "Open" ? Colors.orange.shade100 : Colors.green.shade100,
-            //     borderRadius: BorderRadius.circular(8.0), // Adjust border radius for pill-like shape
-            //   ),
-            //   child: Text(
-            //     ticket.status,
-            //     style: TextStyle(
-            //       color: ticket.status == "Open" ? Colors.deepOrange : Colors.green,
-            //       fontWeight: FontWeight.bold,
-            //       fontSize: 14.0, // Adjust font size for status text
-            //     ),
-            //   ),
-            // ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              decoration: BoxDecoration(
+                color: ticket.status == "Open" ? Colors.orange.shade100 : Colors.green.shade100,
+                borderRadius: BorderRadius.circular(8.0), // Adjust border radius for pill-like shape
+              ),
+              child: Text(
+                ticket.status,
+                style: TextStyle(
+                  color: ticket.status == "Open" ? Colors.deepOrange : Colors.green,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14.0, // Adjust font size for status text
+                ),
+              ),
+            ),
           ],
         ),
       ),

@@ -38,6 +38,8 @@ dependencies:
   path: ^1.9.0
   firebase_app_check: ^0.2.2+7
   image_gallery_saver: ^2.0.3
+  encrypt: ^5.0.3
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:

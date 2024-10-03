@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class QRCodeController extends GetxController {
   var qrCodeLink = ''.obs;
   var userName = ''.obs;
+  var userEmail = ''.obs;
+  var userPhone = ''.obs;
   var userId = 0.obs;
 
   Future<void> fetchCurrentUserDetails() async {
@@ -24,6 +26,8 @@ class QRCodeController extends GetxController {
           if (user['phone_number'] == phone) {
             qrCodeLink.value = user['qr_code'];
             userName.value = user['username'];
+            userEmail.value = user['email'];
+            userPhone.value = user['phone_number'];
             userId.value = user['id'];
             break;
           }

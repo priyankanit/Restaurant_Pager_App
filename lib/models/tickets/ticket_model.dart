@@ -7,6 +7,7 @@ class Ticket {
   final String attachFile;
   final String description;
   final DateTime dateTime;
+  final String status;
 
   Ticket({
     required this.id,
@@ -17,6 +18,7 @@ class Ticket {
     required this.attachFile,
     required this.description,
     required this.dateTime,
+    required this.status,
   });
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class Ticket {
       attachFile: json['attach_file'],
       description: json['description'],
       dateTime: DateTime.parse(json['date_time']),
+      status: json['status'],
     );
   }
 }
