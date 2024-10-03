@@ -122,6 +122,9 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
                           : "Retry",
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
+                          if(otpController.timerText30s > 0){
+                            return;
+                          }
                           otpController.sendOTPtoEmail();
                           otpController.resetTimer();
                         },
