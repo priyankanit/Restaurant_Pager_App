@@ -6,13 +6,13 @@ import 'package:intl/intl.dart';
 class NotificationView extends StatelessWidget {
   final List<NotificationModel> notificationsList;
 
-  NotificationView({required this.notificationsList});
+  const NotificationView({super.key, required this.notificationsList});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notifications'),
+        title: const Text('Notifications'),
       ),
       body: ListView.builder(
         itemCount: notificationsList.length,
