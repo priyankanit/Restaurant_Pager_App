@@ -6,7 +6,7 @@ import 'package:restuarant_pager_app/controllers/EmailController/EmailController
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
-// import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
+import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
@@ -52,34 +52,32 @@ void submit(BuildContext context) async {
   final userData = Get.find<UserController>();
 
 
-  // temporary -> may be backend handle upload
-
-  // // upload profile pic to firebase if provided
-  // String? downloadUrl;
-  // if(profilePic != null){
-  //   final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
-  //   if(res.message == "success"){
-  //     downloadUrl = res.data;
-  //   }else{
-  //     if(context.mounted){
-  //       showToastMessage(context, res.message!);
-  //     }
-  //   }
-  // }
+  // upload profile pic to firebase if provided
+  String? downloadUrl;
+  if(profilePic != null){
+    final res = await StorageMethods().uploadProfilePic(file: profilePic!);
+    if(res.message == "success"){
+      downloadUrl = res.data;
+    }else{
+      if(context.mounted){
+        showToastMessage(context, res.message!);
+      }
+    }
+  }
 
   userData.updateUserDetails(
     name: name,
     dateOfBirth: dateOfBirth,
     gender: gender,
     phone: phoneNumberController.phoneNumberModel.value,
-    // profilePic: downloadUrl,
+    profilePic: downloadUrl,
     email: emailAdress,
     whatsAppMessagePreference: whatsAppMessagePreference,
   );
 
 
   // storing user data in backend
-  final res = await _authMethods.createAccount(userData.user,profilePic);
+  final res = await _authMethods.createAccount(userData.user);
   if(res.message == "success"){
     Get.offAllNamed('/dashboard');
   }else{

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:restuarant_pager_app/controllers/EmailController/EmailController.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
@@ -80,7 +81,7 @@ class OTPController extends GetxController {
   }
 
   Future<void> sendOTPtoEmail()async{
-    final res = await _authMethods.sentOTPtoEmail(userController.email!);
+    final res = await _authMethods.sentOTPtoEmail(Get.find<EmailController>().emailAddress!);
     if(res.message == "success"){
       _emailOTP = res.data!;
     }

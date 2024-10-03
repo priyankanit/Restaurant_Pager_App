@@ -56,7 +56,7 @@ class EditProfileController extends GetxController {
     // upload profile pic if given
     String? downloadUrl;
     if(_selectedPic != null){
-      final res = await StorageMethods().uploadProfilePic(file: _selectedPic!, uid: userController.uid!);
+      final res = await StorageMethods().uploadProfilePic(file: _selectedPic!);
       if(res.message == "success"){
         downloadUrl = res.data;
       }else{

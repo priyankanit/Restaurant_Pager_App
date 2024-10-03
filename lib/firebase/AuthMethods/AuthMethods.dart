@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:dio/dio.dart' as dio;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -156,6 +155,39 @@ class AuthMethods {
     }
   }
 
+    Future<ResponseModel> createAccount(UserModel user) async {
+    String res = "some error occurred";
+    try {
+      final data = {
+        'uid': user.uid,
+        'username': user.name,
+        'email': user.email,
+        'phone_number': user.phone?.getE164FormattedPhoneNumber(),
+        'profile_image': user.profilePic,
+        'gender': user.gender,
+        'date_of_birth': user.dateOfBirth,
+        'is_active': user.whatsAppMessagePreference
+      };
+
+      final response = await _dio.post(
+        routes['create_user']!,
+        data: data,
+      );
+
+      if (response.statusCode == 201) {
+        userController.updateUserDetails(
+            profilePic: response.data["profile_image"]);
+        res = "success";
+      } else {
+        res = response.statusMessage ?? res;
+      }
+    } catch (error) {
+      res = error.toString();
+    }
+
+    return ResponseModel(message: res);
+  }
+
   Future<ResponseModel> getUserData() async {
     String res = "some error occurred";
     try {
@@ -180,44 +212,6 @@ class AuthMethods {
         }
       } else {
         res = "user not found";
-      }
-    } catch (error) {
-      res = error.toString();
-    }
-
-    return ResponseModel(message: res);
-  }
-
-  Future<ResponseModel> createAccount(UserModel user, File? profilePic) async {
-    String res = "some error occurred";
-    try {
-      dio.FormData formData = dio.FormData.fromMap({
-        'uid': user.uid,
-        'username': user.name,
-        'email': user.email,
-        'phone_number': user.phone?.getE164FormattedPhoneNumber(),
-        'profile_image': profilePic != null
-            ? await dio.MultipartFile.fromFile(
-                profilePic.path,
-                filename: profilePic.path.split('/').last,
-              )
-            : null,
-        'gender': user.gender,
-        'date_of_birth': user.dateOfBirth,
-        'is_active': user.whatsAppMessagePreference
-      });
-
-      final response = await _dio.post(
-        routes['create_user']!,
-        data: formData,
-      );
-
-      if (response.statusCode == 201) {
-        userController.updateUserDetails(
-            profilePic: response.data["profile_image"]);
-        res = "success";
-      } else {
-        res = response.statusMessage ?? res;
       }
     } catch (error) {
       res = error.toString();
