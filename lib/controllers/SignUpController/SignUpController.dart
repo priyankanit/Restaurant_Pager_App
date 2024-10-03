@@ -84,7 +84,6 @@ void submit(BuildContext context) async {
     Get.offAllNamed('/dashboard');
   }else{
     if(context.mounted){
-      print(res.message!);
       showToastMessage(context, res.message!);
     }
     userData.clearUserData();
