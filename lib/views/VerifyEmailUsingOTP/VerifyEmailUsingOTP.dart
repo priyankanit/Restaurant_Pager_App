@@ -122,7 +122,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
                           : "Retry",
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // handle resend
+                          otpController.sendOTPtoEmail();
                           otpController.resetTimer();
                         },
                       style: GoogleFonts.inter(
@@ -144,7 +144,7 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
               child: Button(
                 onPressed: () {
                   if ( otpController.isVerified != null && otpController.isVerified!) {
-                    widget.onVerified(); // test  
+                    widget.onVerified();  
                   }
                 },
                 text: "Submit",

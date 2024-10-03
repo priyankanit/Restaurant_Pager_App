@@ -188,8 +188,6 @@ class AuthMethods {
     return ResponseModel(message: res);
   }
 
-  // firestore temporary methods
-
   Future<ResponseModel> createAccount(UserModel user, File? profilePic) async {
     String res = "some error occurred";
     try {
