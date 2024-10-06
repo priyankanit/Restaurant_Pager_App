@@ -30,7 +30,7 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+        leading: IconButton(icon: const Icon(Icons.arrow_back),onPressed: (){
           Get.offAll(()=> TicketHistoryPage());
         },),
         title: const Text(
@@ -166,7 +166,6 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
                     issueTicketController.ticket.selectedOrder = selectOrderController.text;
                     issueTicketController.ticket.description = descriptionController.text;
                     issueTicketController.attachedFile = attachedFile;
-                    print('name: ${issueTicketController.ticket.firstName + issueTicketController.ticket.lastName}');
                     // Submit ticket
                     bool post= await issueTicketController.submitTicket(context);
                     if (post) {
@@ -175,7 +174,6 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
                         context: context,
                         builder: (BuildContext context) {
                           return TicketSubmitPopup(ticketId: issueTicketController.ticketId); // Pass the ticket ID
-                          Get.to(TicketHistoryPage());
                         },
                       );
                     } else {
@@ -186,7 +184,6 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
                       );
                     }
                   } catch (error) {
-                    print(error);
                     // Handle submission error
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
