@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:restuarant_pager_app/views/tickets/ticket_history.dart';
 import '../../controllers/tickets/raise_ticket.dart';
 import '../../utils/imagePicker.dart';
 import '../../widgets/textfield.dart';
+import '../../widgets/ticket_sumbit_popup.dart';
 
 class SubmitIssuePage extends StatefulWidget {
   const SubmitIssuePage({super.key});
@@ -27,7 +30,9 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed: (){
+          Get.offAll(()=> TicketHistoryPage());
+        },),
         title: const Text(
           'Submit an Issue',
           style: TextStyle(fontWeight: FontWeight.w700),
@@ -164,13 +169,24 @@ class _SubmitIssuePageState extends State<SubmitIssuePage> {
                     print('name: ${issueTicketController.ticket.firstName + issueTicketController.ticket.lastName}');
                     // Submit ticket
                     bool post= await issueTicketController.submitTicket(context);
-                    if(post)
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Ticket submitted successfully'),
-                      ),
-                    );
+                    if (post) {
+                      // Show success dialog with ticket ID
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return TicketSubmitPopup(ticketId: issueTicketController.ticketId); // Pass the ticket ID
+                          Get.to(TicketHistoryPage());
+                        },
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Ticket submission failed'),
+                        ),
+                      );
+                    }
                   } catch (error) {
+                    print(error);
                     // Handle submission error
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

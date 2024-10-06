@@ -1,5 +1,5 @@
 class Ticket {
-  final int id;
+  final String id;
   final String firstName;
   final String lastName;
   final String email;
@@ -23,15 +23,16 @@ class Ticket {
 
   factory Ticket.fromJson(Map<String, dynamic> json) {
     return Ticket(
-      id: json['id'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      email: json['email'],
-      selectOrder: json['select_order'],
-      attachFile: json['attach_file'],
-      description: json['description'],
+      id: json['id'].toString(),  // Ensure id is a string
+      firstName: json['first_name'] as String? ?? '', // Use null-aware operator if needed
+      lastName: json['last_name'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      selectOrder: json['select_order']?.toString() ?? '',  // Convert to string
+      attachFile: json['attach_file'] as String? ?? '',
+      description: json['description'] as String? ?? '',
       dateTime: DateTime.parse(json['date_time']),
-      status: json['status'],
+      status: json['status'] as String? ?? 'Open',  // Ensure status is a string
     );
   }
+
 }
