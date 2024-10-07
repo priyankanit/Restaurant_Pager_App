@@ -8,6 +8,7 @@ import 'package:restuarant_pager_app/controllers/UserController/UserController.d
 import 'package:restuarant_pager_app/models/ResponseModel/ResponseModel.dart';
 import 'package:restuarant_pager_app/models/UserModel/UserModel.dart';
 import 'package:restuarant_pager_app/utils/toastMessage.dart';
+import 'package:restuarant_pager_app/views/LinkAccountPage/components/AccountCard.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -277,6 +278,46 @@ class AuthMethods {
       res = error.toString();
     }
     return ResponseModel(message: res, data: user);
+  }
+
+  Future<ResponseModel> fetchUserAccounts() async {
+    String res = "some error occurred";
+    List<AccountCard> accounts = [];
+    try {
+      if (user != null) {
+        for (final providerData in user!.providerData) {
+          String? provider;
+          switch (providerData.providerId) {
+            case 'google.com':
+              provider = 'google';
+              break;
+            case 'facebook.com':
+              provider = 'facebook';
+              break;
+            case 'password':
+              provider = 'email';
+              break;
+            default:
+              provider = providerData.providerId;
+          }
+
+          // add to list if required data is available to us
+          if (providerData.displayName != null && providerData.email != null) {
+            accounts.add(
+              AccountCard(
+                name: providerData.displayName!,
+                mail: providerData.email!,
+                provider: provider,
+              ),
+            );
+          }
+        }
+        res = "success";
+      }
+    } catch (error) {
+      res = error.toString();
+    }
+    return ResponseModel(message: res, data: accounts);
   }
 
   Future<ResponseModel> updateUser(UserModel newData) async {

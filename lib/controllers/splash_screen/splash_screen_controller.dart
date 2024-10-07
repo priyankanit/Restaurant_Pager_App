@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/models/ResponseModel/ResponseModel.dart';
-import 'package:restuarant_pager_app/views/SignUpView/signUpPage.dart';
+import 'package:restuarant_pager_app/views/LinkAccountPage/LinkAccountPage.dart';
 import 'package:restuarant_pager_app/views/UpdateNumberDetails/UpdateNumberDetails.dart';
 
 class SplashScreenController extends GetxController {
@@ -31,8 +31,13 @@ class SplashScreenController extends GetxController {
             // User data found, navigate to dashboard
             Get.offAllNamed('/dashboard');
           } else if(userController.phoneNumber != null){
+            final res = await authMethods.fetchUserAccounts();
+             // if user's phone number is linked to multiple account
+            if(res.message == 'success' && res.data.length > 1){
+              Get.to(() => LinkAccountPage(accounts: res.data));
+            }
             // Error retrieving user data, navigate to sign up page to get details and register at backend
-            Get.off(() => const SignUpPage());
+            Get.offAllNamed('/signup');
           }else{
             Get.off(() => const UpdateNumberDetails(title: "Add Phone Number"));
           }

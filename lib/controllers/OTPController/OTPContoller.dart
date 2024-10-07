@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:restuarant_pager_app/controllers/EmailController/EmailController.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
+import 'package:restuarant_pager_app/controllers/SignUpController/SignUpController.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
 import 'package:restuarant_pager_app/models/OTPModel/OTP.model.dart';
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
-import 'package:restuarant_pager_app/utils/toastMessage.dart';
 
 class OTPController extends GetxController {
   final OTPModel otpModel = OTPModel();
@@ -20,7 +20,6 @@ class OTPController extends GetxController {
   TextEditingController pinputController = TextEditingController();
   RxInt timerText20s = 20.obs;
   RxInt timerText30s = 30.obs;
-  bool? isVerified;
 
   // getters
   String? get otp => otpModel.otp;
@@ -40,19 +39,8 @@ class OTPController extends GetxController {
     startTimers();
   }
 
-  void setOTP(String otp,bool isPhoneOTP,BuildContext context) async {
+  void setOTP(String otp) async {
     otpModel.otp = otp;
-    String? error;
-    if(isPhoneOTP){
-      error = await validatePhoneOTP();
-    }else{
-      isVerified = _emailOTP.trim() == otp.trim();
-    }
-    if(error != null){
-      if(context.mounted){
-        showToastMessage(context, error);
-      }
-    }
   }
 
   void startTimers() {
@@ -91,15 +79,28 @@ class OTPController extends GetxController {
     _authMethods.sentOTPtoPhone(phoneController.getE164FormattedPhoneNumber(), resendToken, context);
   }
 
-  Future<String?> validatePhoneOTP() async {
+  void validatePhoneOTP() async {
     final res = await _authMethods.signInUsingPhoneNumber();
     if(res.message == "success"){
+      // extract user data
       User userData = res.data;
       userController.updateUserDetails(uid: userData.uid);
-      isVerified = true;
-      return null;
+    }else{
+      // error in authentication , go to login screen
+      Get.offAllNamed('/login');
     }
-    return res.message;
+  }
+
+  void validateEmailOTP() {
+    if(_emailOTP.trim() == otp?.trim()){
+      // email is verified , submit user data
+      Get.find<SignUpController>().submit();
+      // goto home screen
+      Get.offAllNamed('/dashboard');
+    }else{
+      // error in authentication , go to signup page
+      Get.offAllNamed('/signup');
+    }
   }
 
   @override

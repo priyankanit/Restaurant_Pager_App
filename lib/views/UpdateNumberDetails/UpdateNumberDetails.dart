@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:restuarant_pager_app/constants/ColorPalette.dart';
 import 'package:restuarant_pager_app/controllers/PhoneNumberController/PhoneNumberController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
-import 'package:restuarant_pager_app/views/SignUpView/signUpPage.dart';
 import 'package:restuarant_pager_app/views/VerifyPhoneNoUsingOTP/VerifyPhoneNoUsingOTP.dart';
 import 'package:restuarant_pager_app/widgets/Button.dart';
 import 'package:restuarant_pager_app/utils/toastMessage.dart';
@@ -103,12 +102,12 @@ class _UpdateNumberDetailsState extends State<UpdateNumberDetails> {
                                       value: country['code'],
                                       child: Row(
                                         children: [
-                                          SvgPicture.asset(
-                                            country['icon']!,
-                                            fit: BoxFit.contain,
-                                            height: 16,
-                                            width: 16,
-                                          ),
+                                              SvgPicture.asset(
+                                                country['icon']!,
+                                                fit: BoxFit.fill,
+                                                height: 12,
+                                                width: 12,
+                                              ),
                                           const SizedBox(width: 8),
                                           Text(
                                             country['code']!,
@@ -209,9 +208,7 @@ class _UpdateNumberDetailsState extends State<UpdateNumberDetails> {
                       return;
                     }
 
-                    Get.to(() => VerifyPhoneNoUsingOTP(onVerified: (){
-                      Get.off(const SignUpPage());
-                    }));
+                    Get.to(() => const VerifyPhoneNoUsingOTP());
                   },
                   text: "Send OTP",
                   disable: controller.isButtonDisabled.value,

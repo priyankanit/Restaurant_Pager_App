@@ -67,10 +67,10 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
                 Row(
                   children: [
                     SvgPicture.asset(
-                     controller.countryFlag!,
-                      fit: BoxFit.contain,
-                      height: 16,
-                      width: 16,
+                      controller.countryFlag!,
+                      fit: BoxFit.fill,
+                      height: 12,
+                      width: 12,
                     ),
                     const SizedBox(width: 8),
                     Text(

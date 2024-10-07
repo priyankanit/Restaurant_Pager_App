@@ -10,9 +10,40 @@ class PhoneNumberModel {
     required this.countryCode,
   });
 
-  static const List<Map<String, String>> _countries = [
-    {'name': 'India', 'code': '+91', 'icon': 'assets/phoneNumberAssets/india_icon.svg'},
-  ];
+static const List<Map<String, String>> _countries = [
+  {'name': 'India', 'code': '+91', 'icon': 'assets/phoneNumberAssets/in.svg'},
+  {'name': 'United States', 'code': '+01', 'icon': 'assets/phoneNumberAssets/us.svg'},
+  {'name': 'United Kingdom', 'code': '+44', 'icon': 'assets/phoneNumberAssets/gb.svg'},
+  {'name': 'Germany', 'code': '+49', 'icon': 'assets/phoneNumberAssets/de.svg'},
+  {'name': 'Canada', 'code': '+1', 'icon': 'assets/phoneNumberAssets/ca.svg'},
+  {'name': 'Australia', 'code': '+61', 'icon': 'assets/phoneNumberAssets/au.svg'},
+  {'name': 'France', 'code': '+33', 'icon': 'assets/phoneNumberAssets/fr.svg'},
+  {'name': 'Japan', 'code': '+81', 'icon': 'assets/phoneNumberAssets/jp.svg'},
+  {'name': 'China', 'code': '+86', 'icon': 'assets/phoneNumberAssets/cn.svg'},
+  {'name': 'Brazil', 'code': '+55', 'icon': 'assets/phoneNumberAssets/br.svg'},
+  {'name': 'South Africa', 'code': '+27', 'icon': 'assets/phoneNumberAssets/za.svg'},
+  {'name': 'Russia', 'code': '+7', 'icon': 'assets/phoneNumberAssets/ru.svg'},
+  {'name': 'Mexico', 'code': '+52', 'icon': 'assets/phoneNumberAssets/mx.svg'},
+  {'name': 'Argentina', 'code': '+54', 'icon': 'assets/phoneNumberAssets/ar.svg'},
+  {'name': 'Italy', 'code': '+39', 'icon': 'assets/phoneNumberAssets/it.svg'},
+  {'name': 'Spain', 'code': '+34', 'icon': 'assets/phoneNumberAssets/es.svg'},
+  {'name': 'Netherlands', 'code': '+31', 'icon': 'assets/phoneNumberAssets/nl.svg'},
+  {'name': 'Sweden', 'code': '+46', 'icon': 'assets/phoneNumberAssets/se.svg'},
+  {'name': 'Switzerland', 'code': '+41', 'icon': 'assets/phoneNumberAssets/ch.svg'},
+  {'name': 'Norway', 'code': '+47', 'icon': 'assets/phoneNumberAssets/no.svg'},
+  {'name': 'Denmark', 'code': '+45', 'icon': 'assets/phoneNumberAssets/dk.svg'},
+  {'name': 'Finland', 'code': '+358', 'icon': 'assets/phoneNumberAssets/fi.svg'},
+  {'name': 'Belgium', 'code': '+32', 'icon': 'assets/phoneNumberAssets/be.svg'},
+  {'name': 'Ireland', 'code': '+353', 'icon': 'assets/phoneNumberAssets/ie.svg'},
+  {'name': 'New Zealand', 'code': '+64', 'icon': 'assets/phoneNumberAssets/nz.svg'},
+  {'name': 'South Korea', 'code': '+82', 'icon': 'assets/phoneNumberAssets/kr.svg'},
+  {'name': 'Singapore', 'code': '+65', 'icon': 'assets/phoneNumberAssets/sg.svg'},
+  {'name': 'Malaysia', 'code': '+60', 'icon': 'assets/phoneNumberAssets/my.svg'},
+  {'name': 'Philippines', 'code': '+63', 'icon': 'assets/phoneNumberAssets/ph.svg'},
+  {'name': 'Thailand', 'code': '+66', 'icon': 'assets/phoneNumberAssets/th.svg'},
+  {'name': 'Vietnam', 'code': '+84', 'icon': 'assets/phoneNumberAssets/vn.svg'},
+];
+
 
   List<Map<String, String>> get countries => _countries;
 

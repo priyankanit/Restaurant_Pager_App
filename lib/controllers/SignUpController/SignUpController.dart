@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +11,6 @@ import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
-import 'package:restuarant_pager_app/utils/toastMessage.dart';
 import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
 
 class SignUpController extends GetxController {
@@ -46,7 +46,7 @@ class SignUpController extends GetxController {
     });
   }
 
-void submit(BuildContext context) async {
+void submit() async {
   signUpModel.value.phoneNumber = phoneNumberController.phoneNumberModel.value;
   signUpModel.value.email = emailController.emailAddress;
   final userData = Get.find<UserController>();
@@ -58,11 +58,11 @@ void submit(BuildContext context) async {
     final res = await StorageMethods().uploadProfilePic(file: profilePic!);
     if(res.message == "success"){
       downloadUrl = res.data;
-    }else{
-      if(context.mounted){
-        showToastMessage(context, res.message!);
+      } else {
+        if (kDebugMode) {
+          debugPrint(res.message!);
+        }
       }
-    }
   }
 
   userData.updateUserDetails(
@@ -80,13 +80,13 @@ void submit(BuildContext context) async {
   final res = await _authMethods.createAccount(userData.user);
   if(res.message == "success"){
     Get.offAllNamed('/dashboard');
-  }else{
-    if(context.mounted){
-      showToastMessage(context, res.message!);
+  } else {
+      if (kDebugMode) {
+        debugPrint(res.message!);
+      }
+      userData.clearUserData();
+      Get.off(() => const LoginPage());
     }
-    userData.clearUserData();
-    Get.off(() => const LoginPage());
-  }
 
 }
 

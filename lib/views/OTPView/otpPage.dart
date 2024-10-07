@@ -9,8 +9,7 @@ import 'package:restuarant_pager_app/widgets/Button.dart';
 import 'package:restuarant_pager_app/widgets/OTPGrids.dart';
 
 class OtpPageView extends StatefulWidget {
-  final Function() onVerified;
-  const OtpPageView({super.key, required this.onVerified});
+  const OtpPageView({super.key});
 
   @override
   State<OtpPageView> createState() => _OtpPageViewState();
@@ -130,11 +129,13 @@ class _OtpPageViewState extends State<OtpPageView> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(width: 272, child: Button(onPressed: () {
-              if( otpController.isVerified != null && otpController.isVerified!){
-                widget.onVerified();
-              }
-            }, text: "Verify")),
+            SizedBox(
+              width: 272,
+              child: Button(
+                onPressed: () {},
+                text: "Verify",
+              ),
+            ),
           ],
         ),
       ),
