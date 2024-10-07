@@ -168,7 +168,8 @@ class AuthMethods {
         'profile_image': user.profilePic,
         'gender': user.gender?.toLowerCase(),
         'date_of_birth': user.dateOfBirth,
-        'is_active': user.whatsAppMessagePreference
+        'is_active': user.whatsAppMessagePreference,
+        'password':"temp"
       };
 
       final response = await _dio.post(
