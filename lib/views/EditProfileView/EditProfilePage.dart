@@ -82,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Button(onPressed: (){}, text: "Save Changes"),
+              child: Button(onPressed:() => editProfileController.submit(context), text: "Save Changes"),
             )
           ],
         ),

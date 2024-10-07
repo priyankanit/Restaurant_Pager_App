@@ -25,6 +25,7 @@ class AuthMethods {
     "create_user": "http://10.0.2.2:8000/user/",
     "get_user": "http://10.0.2.2:8000/user_check/",
     "email_otp": "http://10.0.2.2:8000/otp/",
+    "update_user": "http://10.0.2.2:8000/user/"
   };
 
   Future<ResponseModel> signInWithGoogle() async {
@@ -206,6 +207,7 @@ class AuthMethods {
 
         if (response.message == "success") {
           userController.setUser(response.data);
+          userController.updateUserDetails(uid: user!.uid);
           loggedIn = true;
           res = "success";
         } else {
@@ -322,7 +324,32 @@ class AuthMethods {
 
   Future<ResponseModel> updateUser(UserModel newData) async {
     String res = "some error occurred";
-    // update user route required from backend
+    try{
+       final data = {
+        'uid': newData.uid,
+        'username': newData.name,
+        'email': newData.email,
+        'phone_number': newData.phone?.getE164FormattedPhoneNumber(),
+        'profile_image': newData.profilePic,
+        'gender': newData.gender?.toLowerCase(),
+        'date_of_birth': newData.dateOfBirth,
+        'is_active': newData.whatsAppMessagePreference,
+        'password':"temp"
+      };
+
+      final response = await _dio.post(
+        '${routes['update_user']!}/${userController.id}',
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        res = "success";
+      } else {
+        res = response.statusMessage ?? res;
+      }
+    }catch(error){
+      res = error.toString();
+    }
     return ResponseModel(message: res);
   }
 

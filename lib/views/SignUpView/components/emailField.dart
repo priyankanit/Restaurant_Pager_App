@@ -94,15 +94,15 @@ class _EmailFieldState extends State<EmailField> {
                       ),
                       keyboardType: TextInputType.emailAddress,
                       onChanged: (email) => controller.updateEmail(email),
-                      focusNode: focusNode, // Attach the focus node here
-                      readOnly: !isEditing,
+                      focusNode: focusNode,
+                      readOnly: !isEditing, // Make it read-only if not editing
                     ),
                   ),
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        focusNode.requestFocus();
-                        isEditing = true;
+                        isEditing = true; 
+                        focusNode.requestFocus(); 
                       });
                     },
                     style: TextButton.styleFrom(
