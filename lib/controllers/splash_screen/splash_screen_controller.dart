@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:restuarant_pager_app/controllers/UserController/UserController.dart';
 import 'package:restuarant_pager_app/firebase/AuthMethods/AuthMethods.dart';
@@ -7,8 +7,6 @@ import 'package:restuarant_pager_app/views/LinkAccountPage/LinkAccountPage.dart'
 import 'package:restuarant_pager_app/views/UpdateNumberDetails/UpdateNumberDetails.dart';
 
 class SplashScreenController extends GetxController {
-  static const int seconds = 5;
-
   @override
   void onReady() {
     _initializeApp();
@@ -16,7 +14,7 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> _initializeApp() async {
-    await Future.delayed(const Duration(seconds: seconds));
+    await Future.delayed(const Duration(seconds: 5)); // will remove in production
 
     final authMethods = Get.find<AuthMethods>();
     final userController = Get.find<UserController>();
@@ -31,7 +29,7 @@ class SplashScreenController extends GetxController {
             // User data found, navigate to dashboard
             Get.offAllNamed('/dashboard');
           } else if(userController.phoneNumber != null){
-            final res = await authMethods.fetchUserAccounts();
+            final res = authMethods.fetchUserAccounts();
              // if user's phone number is linked to multiple account
             if(res.message == 'success' && res.data.length > 1){
               Get.to(() => LinkAccountPage(accounts: res.data));
@@ -41,12 +39,19 @@ class SplashScreenController extends GetxController {
           }else{
             Get.off(() => const UpdateNumberDetails(title: "Add Phone Number"));
           }
-        } catch (e) {
-          debugPrint('Error fetching user data: $e');
+        } catch (error) {
+          if (kDebugMode) debugPrint('Error fetching user data: $error');
           Get.offAllNamed('/login');
         }
       } else {
-        Get.offAllNamed('/boarding_screens');
+        if(authMethods.loggedIn){
+          authMethods.loggedIn = false;
+          // show login page after logging out
+          Get.offAllNamed('/login');
+        }else{
+          // new user
+          Get.offAllNamed('/boarding_screens');
+        }
       }
     });
   }

@@ -14,6 +14,7 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final UserController userController = Get.put(UserController());
   final dio.Dio _dio = dio.Dio();
+  bool loggedIn = false;
 
   Stream<User?> get authChanges => _auth.authStateChanges();
   User? get user => _auth.currentUser;
@@ -98,7 +99,7 @@ class AuthMethods {
         "email": email,
       });
       if (response.statusCode == 200) {
-        otp = response.data['otp'].toString();
+        otp = response.data['msg'].toString();
         res = "success";
       }
     } catch (error) {
@@ -165,7 +166,7 @@ class AuthMethods {
         'email': user.email,
         'phone_number': user.phone?.getE164FormattedPhoneNumber(),
         'profile_image': user.profilePic,
-        'gender': user.gender,
+        'gender': user.gender?.toLowerCase(),
         'date_of_birth': user.dateOfBirth,
         'is_active': user.whatsAppMessagePreference
       };
@@ -176,8 +177,7 @@ class AuthMethods {
       );
 
       if (response.statusCode == 201) {
-        userController.updateUserDetails(
-            profilePic: response.data["profile_image"]);
+        loggedIn = true;
         res = "success";
       } else {
         res = response.statusMessage ?? res;
@@ -194,19 +194,18 @@ class AuthMethods {
     try {
       String? email = user?.email;
       String? phoneNumber = user?.phoneNumber;
-      if (email != null) {
-        final response = await getUserWithEmail(email: email);
-        if (response.message == "success") {
-          userController.setUser(response.data);
-          res = "success";
-        } else {
-          res = response.message!;
+      late ResponseModel response;
+
+      if (email != null || phoneNumber != null) {
+        if (email != null) {
+          response = await getUserWithEmail(email: email);
+        } else if (phoneNumber != null) {
+          response = await getUserWithPhoneNumber(e164phoneNumber: phoneNumber);
         }
-      } else if (phoneNumber != null) {
-        final response =
-            await getUserWithPhoneNumber(e164phoneNumber: phoneNumber);
+
         if (response.message == "success") {
           userController.setUser(response.data);
+          loggedIn = true;
           res = "success";
         } else {
           res = response.message!;
@@ -280,7 +279,7 @@ class AuthMethods {
     return ResponseModel(message: res, data: user);
   }
 
-  Future<ResponseModel> fetchUserAccounts() async {
+  ResponseModel fetchUserAccounts() {
     String res = "some error occurred";
     List<AccountCard> accounts = [];
     try {

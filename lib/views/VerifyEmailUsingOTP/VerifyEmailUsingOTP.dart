@@ -17,6 +17,7 @@ class VerifyEmailUsingOTP extends StatefulWidget {
 
 class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
   late OTPController otpController;
+  bool clicked = false;
 
   @override
   void initState() {
@@ -144,8 +145,14 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
             SizedBox(
               width: 272,
               child: Button(
-                onPressed: otpController.validateEmailOTP,
+                onPressed: (){
+                  setState(() {
+                    clicked = true;
+                  });
+                  otpController.validateEmailOTP();
+                },
                 text: "Submit",
+                disable: clicked,
               ),
             ),
           ],

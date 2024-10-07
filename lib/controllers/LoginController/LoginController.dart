@@ -9,7 +9,7 @@ import 'package:restuarant_pager_app/views/OTPView/otpPage.dart';
 class LoginController extends GetxController {
   final _authMethods = Get.find<AuthMethods>();
   final userController = Get.find<UserController>();
-  PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
+  PhoneNumberController phoneNumberController = Get.put(PhoneNumberController(),permanent: true);
 
   String? get phoneNumber => phoneNumberController.phoneNumber;
   String? get selectedCountryCode => phoneNumberController.selectedCountryCode;

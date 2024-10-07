@@ -16,6 +16,7 @@ class VerifyPhoneNoUsingOTP extends StatefulWidget {
 
 class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
   late OTPController otpController;
+  bool clicked = false;
 
   @override
   void initState() {
@@ -148,8 +149,14 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
             SizedBox(
               width: 272,
               child: Button(
-                onPressed: otpController.validatePhoneOTP,
+                onPressed: (){
+                  setState(() {
+                    clicked = true;
+                  });
+                  otpController.validatePhoneOTP();
+                },
                 text: "Submit",
+                disable: clicked,
               ),
             ),
           ],

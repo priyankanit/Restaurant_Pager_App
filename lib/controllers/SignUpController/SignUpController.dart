@@ -11,12 +11,11 @@ import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
-import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
   PhoneNumberController phoneNumberController = Get.find<PhoneNumberController>();
-  EmailController emailController = Get.put(EmailController());
+  EmailController emailController = Get.put(EmailController(),permanent: true);
   final _authMethods = Get.find<AuthMethods>();
   final userController = Get.find<UserController>();
 
@@ -81,11 +80,9 @@ void submit() async {
   if(res.message == "success"){
     Get.offAllNamed('/dashboard');
   } else {
-      if (kDebugMode) {
-        debugPrint(res.message!);
-      }
+      if (kDebugMode) debugPrint(res.message!);
       userData.clearUserData();
-      Get.off(() => const LoginPage());
+      Get.offAllNamed('/login');
     }
 
 }

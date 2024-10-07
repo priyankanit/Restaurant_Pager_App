@@ -68,10 +68,15 @@ class OTPController extends GetxController {
     _authMethods.sentOTPtoPhone(phoneController.getE164FormattedPhoneNumber(), null, context);
   }
 
-  Future<void> sendOTPtoEmail()async{
-    final res = await _authMethods.sentOTPtoEmail(Get.find<EmailController>().emailAddress!);
-    if(res.message == "success"){
+  Future<void> sendOTPtoEmail() async {
+    final res = await _authMethods
+        .sentOTPtoEmail(Get.find<EmailController>().emailAddress!);
+    if (res.message == "success") {
       _emailOTP = res.data!;
+      // set life of otp to 10 min
+      Timer(const Duration(minutes: 10), () {
+        _emailOTP = '';
+      });
     }
   }
 

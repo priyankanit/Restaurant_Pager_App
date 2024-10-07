@@ -17,6 +17,7 @@ class OtpPageView extends StatefulWidget {
 
 class _OtpPageViewState extends State<OtpPageView> {
   late OTPController otpController;
+  bool clicked = false;
 
   @override
   void initState() {
@@ -132,8 +133,14 @@ class _OtpPageViewState extends State<OtpPageView> {
             SizedBox(
               width: 272,
               child: Button(
-                onPressed: () {},
+                onPressed: (){
+                  setState(() {
+                    clicked = true;
+                  });
+                  otpController.validatePhoneOTP();
+                },
                 text: "Verify",
+                disable: clicked,
               ),
             ),
           ],
