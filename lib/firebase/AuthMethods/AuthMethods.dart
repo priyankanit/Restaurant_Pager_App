@@ -12,7 +12,7 @@ import 'package:restuarant_pager_app/views/LinkAccountPage/components/AccountCar
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.put(UserController(),permanent: true);
   final dio.Dio _dio = dio.Dio();
   bool loggedIn = false;
 

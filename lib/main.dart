@@ -22,7 +22,7 @@ void main() async {
   FirebaseAuth.instance.setLanguageCode('en'); // Set it to the desired locale
 
   // Initialize necessary services
-  Get.put(AuthMethods());
+  Get.put(AuthMethods(),permanent: true);
   runApp(const MyApp());
 }
 

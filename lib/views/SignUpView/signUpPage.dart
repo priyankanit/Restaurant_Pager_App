@@ -36,10 +36,10 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void _submitForm() {
+    if (!_formKey.currentState!.validate()) return;
     setState(() {
       clicked = true;
     });
-    if (!_formKey.currentState!.validate()) return;
     if(signUpUsingPhone){
       Get.to(const VerifyEmailUsingOTP());
     }else{
