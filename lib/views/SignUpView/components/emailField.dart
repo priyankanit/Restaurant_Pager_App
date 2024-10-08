@@ -22,9 +22,11 @@ class _EmailFieldState extends State<EmailField> {
     super.initState();
     emailController = TextEditingController(text: controller.emailAdress ?? "");
     focusNode.addListener(() {
-      setState(() {
-        isEditing = focusNode.hasFocus;
-      });
+      if (isEditing) {
+        setState(() {
+          isEditing = focusNode.hasFocus;
+        });
+      }
     });
   }
 
