@@ -8,8 +8,7 @@ import 'package:restuarant_pager_app/widgets/Button.dart';
 import 'package:restuarant_pager_app/widgets/OTPGrids.dart';
 
 class VerifyPhoneNoUsingOTP extends StatefulWidget {
-  final Function() onVerified;
-  const VerifyPhoneNoUsingOTP({super.key, required this.onVerified});
+  const VerifyPhoneNoUsingOTP({super.key});
 
   @override
   State<VerifyPhoneNoUsingOTP> createState() => _VerifyPhoneNoUsingOTPState();
@@ -17,6 +16,7 @@ class VerifyPhoneNoUsingOTP extends StatefulWidget {
 
 class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
   late OTPController otpController;
+  bool clicked = false;
 
   @override
   void initState() {
@@ -149,12 +149,14 @@ class _VerifyPhoneNoUsingOTPState extends State<VerifyPhoneNoUsingOTP> {
             SizedBox(
               width: 272,
               child: Button(
-                onPressed: () {
-                  if ( otpController.isVerified != null && otpController.isVerified!) {
-                    widget.onVerified();
-                  }
+                onPressed: (){
+                  setState(() {
+                    clicked = true;
+                  });
+                  otpController.validatePhoneOTP();
                 },
                 text: "Submit",
+                disable: clicked,
               ),
             ),
           ],

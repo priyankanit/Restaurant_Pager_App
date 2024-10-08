@@ -9,8 +9,7 @@ import 'package:restuarant_pager_app/widgets/Button.dart';
 import 'package:restuarant_pager_app/widgets/OTPGrids.dart';
 
 class VerifyEmailUsingOTP extends StatefulWidget {
-  final Function() onVerified;
-  const VerifyEmailUsingOTP({super.key, required this.onVerified});
+  const VerifyEmailUsingOTP({super.key});
 
   @override
   State<VerifyEmailUsingOTP> createState() => _VerifyEmailUsingOTPState();
@@ -18,11 +17,13 @@ class VerifyEmailUsingOTP extends StatefulWidget {
 
 class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
   late OTPController otpController;
+  bool clicked = false;
 
   @override
   void initState() {
     Get.delete<OTPController>();
     otpController = Get.put(OTPController());
+    otpController.sendOTPtoEmail();
     super.initState();
   }
 
@@ -121,7 +122,10 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
                           : "Retry",
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // handle resend
+                          if(otpController.timerText30s > 0){
+                            return;
+                          }
+                          otpController.sendOTPtoEmail();
                           otpController.resetTimer();
                         },
                       style: GoogleFonts.inter(
@@ -141,12 +145,14 @@ class _VerifyEmailUsingOTPState extends State<VerifyEmailUsingOTP> {
             SizedBox(
               width: 272,
               child: Button(
-                onPressed: () {
-                  if ( otpController.isVerified != null && otpController.isVerified!) {
-                    widget.onVerified(); // test  
-                  }
+                onPressed: (){
+                  setState(() {
+                    clicked = true;
+                  });
+                  otpController.validateEmailOTP();
                 },
                 text: "Submit",
+                disable: clicked,
               ),
             ),
           ],

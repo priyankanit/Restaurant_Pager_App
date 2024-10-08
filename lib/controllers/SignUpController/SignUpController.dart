@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,13 +11,11 @@ import 'package:restuarant_pager_app/firebase/StorageMethods/StorageMethods.dart
 import 'package:restuarant_pager_app/models/PhoneNumberModel/PhoneNumber.model.dart';
 import 'package:restuarant_pager_app/models/SignUpModel/SignUp.model.dart';
 import 'package:restuarant_pager_app/utils/imagePicker.dart';
-import 'package:restuarant_pager_app/utils/toastMessage.dart';
-import 'package:restuarant_pager_app/views/LoginView/loginPage.dart';
 
 class SignUpController extends GetxController {
   var signUpModel = SignUpModel().obs;
-  PhoneNumberController phoneNumberController = Get.put(PhoneNumberController());
-  EmailController emailController = Get.put(EmailController());
+  PhoneNumberController phoneNumberController = Get.find<PhoneNumberController>();
+  EmailController emailController = Get.put(EmailController(),permanent: true);
   final _authMethods = Get.find<AuthMethods>();
   final userController = Get.find<UserController>();
 
@@ -24,6 +23,7 @@ class SignUpController extends GetxController {
   void onInit(){
     super.onInit();
     signUpModel.value.phoneNumber = PhoneNumberModel(phoneNumber: phoneNumberController.phoneNumber, countryCode: phoneNumberController.selectedCountryCode,);
+    signUpModel.value.name = userController.name;
     emailController.emailAddress = userController.email;
     signUpModel.value.email = emailController.emailAddress;
   }
@@ -45,22 +45,23 @@ class SignUpController extends GetxController {
     });
   }
 
-void submit(BuildContext context) async {
+void submit() async {
   signUpModel.value.phoneNumber = phoneNumberController.phoneNumberModel.value;
   signUpModel.value.email = emailController.emailAddress;
   final userData = Get.find<UserController>();
 
+
   // upload profile pic to firebase if provided
   String? downloadUrl;
   if(profilePic != null){
-    final res = await StorageMethods().uploadProfilePic(file: profilePic!, uid: userData.uid!);
+    final res = await StorageMethods().uploadProfilePic(file: profilePic!);
     if(res.message == "success"){
       downloadUrl = res.data;
-    }else{
-      if(context.mounted){
-        showToastMessage(context, res.message!);
+      } else {
+        if (kDebugMode) {
+          debugPrint(res.message!);
+        }
       }
-    }
   }
 
   userData.updateUserDetails(
@@ -78,13 +79,11 @@ void submit(BuildContext context) async {
   final res = await _authMethods.createAccount(userData.user);
   if(res.message == "success"){
     Get.offAllNamed('/dashboard');
-  }else{
-    if(context.mounted){
-      showToastMessage(context, res.message!);
+  } else {
+      if (kDebugMode) debugPrint(res.message!);
+      userData.clearUserData();
+      Get.offAllNamed('/login');
     }
-    userData.clearUserData();
-    Get.off(() => const LoginPage());
-  }
 
 }
 

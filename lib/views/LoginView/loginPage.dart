@@ -6,7 +6,6 @@ import 'package:restuarant_pager_app/constants/color_palette.dart';
 import 'package:restuarant_pager_app/controllers/LoginController/LoginController.dart';
 import 'package:restuarant_pager_app/views/LoginView/components/googleSignInButton.dart';
 import 'package:restuarant_pager_app/widgets/TermsAndConditions.dart';
-
 import 'components/phoneNoField.dart';
 
 class LoginPage extends StatefulWidget {

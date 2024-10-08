@@ -21,6 +21,16 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final editProfileController = Get.put(EditProfileController());
   final _formKey = GlobalKey<FormState>();
+  bool clicked = false;
+
+  void _submitForm(){
+    if(_formKey.currentState!.validate()) return;
+    setState((){
+      clicked = true;
+    });
+    editProfileController.submit(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +92,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Button(onPressed: (){}, text: "Save Changes"),
+              child: Button(
+                onPressed: _submitForm,
+                text: "Save Changes",
+                disable: clicked,
+              ),
             )
           ],
         ),

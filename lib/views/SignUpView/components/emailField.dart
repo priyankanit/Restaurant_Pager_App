@@ -15,18 +15,19 @@ class _EmailFieldState extends State<EmailField> {
   final controller = Get.find<SignUpController>();
   late TextEditingController emailController;
   FocusNode focusNode = FocusNode();
-  bool isFocused = false;
   bool isEditing = false;
 
   @override
   void initState() {
+    super.initState();
     emailController = TextEditingController(text: controller.emailAdress ?? "");
     focusNode.addListener(() {
-      setState(() {
-        isFocused = focusNode.hasFocus;
-      });
+      if (isEditing) {
+        setState(() {
+          isEditing = focusNode.hasFocus;
+        });
+      }
     });
-    super.initState();
   }
 
   @override
@@ -53,85 +54,72 @@ class _EmailFieldState extends State<EmailField> {
               ),
             ),
             const SizedBox(height: 13),
-            Focus(
-              focusNode: focusNode,
-              child: GestureDetector(
-                onTap: () {
-                  focusNode.requestFocus();
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: state.hasError
-                          ? Colors.red
-                          : isFocused
-                              ? themeColor
-                              : const Color.fromRGBO(216, 218, 220, 1),
-                      width: 1,
+            Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: state.hasError
+                      ? Colors.red
+                      : isEditing
+                          ? themeColor
+                          : const Color.fromRGBO(216, 218, 220, 1),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: emailController,
+                      cursorColor: fontColor,
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 1,
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        hintText: "Enter your email",
+                        hintStyle: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: const Color.fromRGBO(128, 128, 128, 1),
+                        ),
+                        fillColor: Colors.white,
+                        border: InputBorder.none,
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (email) => controller.updateEmail(email),
+                      focusNode: focusNode,
+                      readOnly: !isEditing, // Make it read-only if not editing
                     ),
                   ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextFormField(
-                          controller: emailController,
-                          cursorColor: fontColor,
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          maxLines: 1,
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: InputDecoration(
-                            hintText: "Enter your email",
-                            hintStyle: GoogleFonts.inter(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: const Color.fromRGBO(128, 128, 128, 1),
-                            ),
-                            fillColor: Colors.white,
-                            border: InputBorder.none,
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                              vertical: 12,
-                            ),
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          onChanged:(email) => controller.updateEmail(email),
-                          onEditingComplete: () {
-                            setState(() {
-                              isEditing = false;
-                            });
-                          },
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          readOnly: !isEditing,
-                        ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        isEditing = true; 
+                        focusNode.requestFocus(); 
+                      });
+                    },
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                    ),
+                    child: Text(
+                      "Edit",
+                      style: GoogleFonts.inter(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: themeColor,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          setState(() {
-                            focusNode.requestFocus();
-                            isEditing = true;
-                          });
-                        },
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                        ),
-                        child: Text(
-                          "Edit",
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: themeColor,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
             if (state.hasError)

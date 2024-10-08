@@ -13,6 +13,7 @@ class UserController extends GetxController {
   String? get profilePic => currentUser.value.profilePic;
   String? get dateOfBirth => currentUser.value.dateOfBirth;
   String? get uid => currentUser.value.uid;
+  int? get id => currentUser.value.id;
 
   void setUser(UserModel user) {
     currentUser.value = user;
@@ -27,6 +28,7 @@ class UserController extends GetxController {
     String? email,
     String? profilePic,
     bool? whatsAppMessagePreference,
+    int? id,
   }) {
     // Create a new UserModel instance with updated values
     UserModel updatedUser = currentUser.value.copyWith(
@@ -38,6 +40,7 @@ class UserController extends GetxController {
       email: email ?? currentUser.value.email,
       profilePic: profilePic ?? currentUser.value.profilePic,
       whatsAppMessagePreference: whatsAppMessagePreference ?? currentUser.value.whatsAppMessagePreference,
+      id: id ?? currentUser.value.id,
     );
 
     // Update the observable

@@ -53,9 +53,9 @@ class _PhoneNoFieldState extends State<PhoneNoField> {
                                       children: [
                                         SvgPicture.asset(
                                           country['icon']!,
-                                          fit: BoxFit.contain,
-                                          height: 16,
-                                          width: 16,
+                                          fit: BoxFit.fill,
+                                          height: 12,
+                                          width: 12,
                                         ),
                                         const SizedBox(width: 8),
                                         Text(

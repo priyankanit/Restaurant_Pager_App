@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_'
-    ''
-    'auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,7 +24,7 @@ void main() async {
   FirebaseAuth.instance.setLanguageCode('en'); // Set it to the desired locale
 
   // Initialize necessary services
-  Get.put(AuthMethods());
+  Get.put(AuthMethods(),permanent: true);
   runApp(const MyApp());
 }
 

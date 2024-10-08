@@ -67,9 +67,9 @@ class _EditProfilePhoneNoFieldState extends State<EditProfilePhoneNoField> {
                   children: [
                     SvgPicture.asset(
                      controller.countryFlag!,
-                      fit: BoxFit.contain,
-                      height: 16,
-                      width: 16,
+                      fit: BoxFit.fill,
+                      height: 12,
+                      width: 12,
                     ),
                     const SizedBox(width: 8),
                     Text(

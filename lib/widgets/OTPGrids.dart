@@ -37,9 +37,7 @@ class _OTPGridsState extends State<OTPGrids> {
       padding: const EdgeInsets.symmetric(horizontal: 17),
       child: Pinput(
         controller: otpController.pinputController,
-        // smsRetriever: reteriver,
         pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
-        // validator: (value) => otpController.validate(),
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         length: 6, // The number of OTP digits
         defaultPinTheme: PinTheme(
@@ -72,7 +70,7 @@ class _OTPGridsState extends State<OTPGrids> {
             borderRadius: BorderRadius.circular(8),
           ),
         ),
-        onCompleted:(otp) => otpController.setOTP(otp,widget.isPhoneOTP,context),
+        onCompleted:(otp) => otpController.setOTP(otp),
         keyboardType: TextInputType.number,
       ),
     );

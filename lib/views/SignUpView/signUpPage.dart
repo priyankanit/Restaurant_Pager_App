@@ -25,6 +25,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final _formKey = GlobalKey<FormState>();
   bool signUpUsingPhone = true;
   final SignUpController controller = Get.put(SignUpController());
+  bool clicked = false;
 
   @override
   void initState() {
@@ -36,12 +37,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _submitForm() {
     if (!_formKey.currentState!.validate()) return;
-    if(!signUpUsingPhone){
-      Get.to(VerifyEmailUsingOTP(onVerified: () {
-        controller.submit(context);
-      }));
+    setState(() {
+      clicked = true;
+    });
+    if(signUpUsingPhone){
+      Get.to(const VerifyEmailUsingOTP());
     }else{
-      controller.submit(context);
+      controller.submit();
     }
   }
 
@@ -101,7 +103,11 @@ class _SignUpPageState extends State<SignUpPage> {
                   const MessagePerference(),
                   const SizedBox(height: 30),
                   // Create Account Button
-                  Button(onPressed: _submitForm, text: "Create account"),
+                  Button(
+                    onPressed: _submitForm,
+                    text: "Create account",
+                    disable: clicked,
+                  ),
                   const SizedBox(height: 30),
                   // Terms & conditions
                   const Center(
