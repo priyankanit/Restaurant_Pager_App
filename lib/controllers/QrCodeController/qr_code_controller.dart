@@ -24,7 +24,7 @@ class QRCodeController extends GetxController {
 
         for (var user in users) {
           if (user['phone_number'] == phone) {
-            qrCodeLink.value = user['qr_code'];
+            // qrCodeLink.value = user['qr_code'];
             userName.value = user['username'];
             userEmail.value = user['email'];
             userPhone.value = user['phone_number'];

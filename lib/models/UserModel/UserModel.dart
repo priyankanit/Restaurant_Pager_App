@@ -66,13 +66,13 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'] as String?,
-      name: map['username'] as String,
-      dateOfBirth: map['date_of_birth'] as String,
-      gender: map['gender'] as String,
+      name: map['username'] as String?,
+      dateOfBirth: map['date_of_birth'] as String?,
+      gender: map['gender'] as String?,
       phone: PhoneNumberModel.fillFromE164(map["phone_number"]),
-      email: map['email'] as String,
-      profilePic: map['profile_image'] as String,
-      whatsAppMessagePreference: map['is_active'] as bool,
+      email: map['email'] as String?,
+      profilePic: map['profile_image'] as String?,
+      whatsAppMessagePreference: map['is_active'] as bool?,
       id: map['id'] as int?, 
     );
   }
